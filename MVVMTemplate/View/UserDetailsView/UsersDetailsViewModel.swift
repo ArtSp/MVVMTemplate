@@ -6,7 +6,8 @@ import Foundation
 
 //MARK: - State
 
-struct UserDetailState {
+struct UserDetailState: Identifiable {
+    var id: User.ID { user.id }
     var user: User
 }
 
@@ -30,7 +31,7 @@ class UserDetailViewModel: ViewModel {
         )
     }
 
-    func trigger(_ input: UsersListInput) {
+    func trigger(_ input: UserDetailInput) {
         switch input {
         default: break
         }

@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
         let userService = UserServiceFake()
-        let viewModel = UsersListViewModel(userService: userService)
+        let viewModel = AnyViewModel(UsersListViewModel(userService: userService))
         let contentView = UsersListView()
             .environmentObject(viewModel)
             .environmentObject(KeyboardObserver.shared)

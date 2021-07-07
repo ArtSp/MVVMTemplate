@@ -9,7 +9,6 @@ import Foundation
 struct UsersListState {
     var users: [AnyViewModel<UserDetailState, UserDetailInput>]
     var isLoading: Bool
-    var navigationBarTitle: String { "Users \(users.count)" }
 }
 
 //MARK: - Input
@@ -37,12 +36,13 @@ class UsersListViewModel: ViewModel {
     private func fetchUsers() {
         guard !state.isLoading else { return }
         state.isLoading = true
-//        userService.getUsers { //[weak self] users in
-//                        self?.state.users = users
-//                            .map { UserDetailViewModel(user: $0, userService: userService) }
-//                            .map { AnyViewModel($0) }
-//            self?.state.isLoading = false
-//        }
+        userService.getUsers { [weak self] users in
+            guard let self = self else { return }
+            self.state.users = users.map {
+                AnyViewModel(UserDetailViewModel(user: $0, userService: self.userService))
+            }
+            self.state.isLoading = false
+        }
     }
 
     func trigger(_ input: UsersListInput) {

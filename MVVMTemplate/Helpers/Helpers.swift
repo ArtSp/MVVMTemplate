@@ -5,7 +5,7 @@
 import SwiftUI
 
 extension Locale {
-    static let ar: Locale = .init(identifier: "ar")
+    static let ru_RU: Locale = .init(identifier: "ru_RU")
     static let en_US: Locale = .init(identifier: "en_US")
 }
 
@@ -43,6 +43,18 @@ func setter<Object: AnyObject, Value>(keyPath: ReferenceWritableKeyPath<Object, 
     { [weak object] value in
         object?[keyPath: keyPath] = value
     }
+}
+
+extension String {
+
+    var localized: String {
+        NSLocalizedString(self, comment: "\(self)_comment")
+      }
+      
+    public func localized(with arguments: [CVarArg]) -> String {
+        String(format: localized, arguments: arguments)
+    }
+    
 }
 
 
