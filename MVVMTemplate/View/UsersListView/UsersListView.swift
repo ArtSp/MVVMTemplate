@@ -33,14 +33,14 @@ struct UsersListView: View {
 }
 
 struct UsersListView_Previews: PreviewProvider {
-    static let model = AnyViewModel(UsersListViewModel(userService: UserServiceFake()))
+    static let model = UsersListViewModel(userService: UserServiceFake())
     static var previews: some View {
         Group {
             UsersListView()
-                .environmentObject(model)
+                .environmentObject(AnyViewModel(model))
                 .environment(\.locale, .en_US)
             UsersListView()
-                .environmentObject(model)
+                .environmentObject(AnyViewModel(model))
                 .environment(\.locale, .ru_RU)
         }
     }

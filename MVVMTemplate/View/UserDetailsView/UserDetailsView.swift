@@ -9,9 +9,12 @@ struct UserDetailView: View {
     private var viewModel: AnyViewModel<UserDetailState, UserDetailInput>
     
     var body: some View {
-        VStack {
-            Text("User \(viewModel.state.user.name)")
-            Text("Age: \(viewModel.state.user.age)")
+        NavigationView {
+            VStack {
+                Text("User: \(viewModel.state.user.name)")
+                Text("Age: \(viewModel.state.user.age)")
+            }
+//            .navigationBarTitle(viewModel.state.user.name)            
         }
     }
 }
@@ -25,7 +28,7 @@ struct UserDetailView_Previews: PreviewProvider {
     
     static var previews: some View {
         UserDetailView()
-            .environmentObject(fakeModel)
+            .environmentObject(AnyViewModel(fakeModel))
             .environment(\.locale, .en_US)
     }
 }
