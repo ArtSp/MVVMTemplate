@@ -14,7 +14,7 @@ struct UserDetailView: View {
                 Text("User: \(viewModel.state.user.name)")
                 Text("Age: \(viewModel.state.user.age)")
             }
-//            .navigationBarTitle(viewModel.state.user.name)            
+            .navigationBarTitle(viewModel.state.user.name)            
         }
     }
 }
