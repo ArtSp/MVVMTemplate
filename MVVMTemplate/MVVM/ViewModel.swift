@@ -7,7 +7,7 @@ import Foundation
 
 protocol ViewModel: ObservableObject where ObjectWillChangePublisher.Output == Void {
     associatedtype State
-    associatedtype Input
+    associatedtype Input // If there is no events, just use `Never`
 
     var state: State { get }
     func trigger(_ input: Input)

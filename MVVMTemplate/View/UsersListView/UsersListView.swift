@@ -19,14 +19,14 @@ struct UsersListView: View {
                             .foregroundColor(.gray)
                     }
                 } else {
-                    List(viewModel.state.users) { viewModel in
+                    List(viewModel.users) { viewModel in
                         NavigationLink(destination: UserDetailView().environmentObject(viewModel)) {
                             UserCell(user: viewModel.user)
                         }
                     }
                 }
                 
-            }.navigationTitle("UsersListView_users \(viewModel.state.users.count)")
+            }.navigationTitle("UsersListView_users \(viewModel.users.count)")
             
         }.onAppear { viewModel.trigger(.fetchUsers) }
     }

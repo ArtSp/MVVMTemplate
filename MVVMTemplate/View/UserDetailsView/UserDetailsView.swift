@@ -11,10 +11,10 @@ struct UserDetailView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("User: \(viewModel.state.user.name)")
-                Text("Age: \(viewModel.state.user.age)")
+                Text("User: \(viewModel.user.name)")
+                Text("Age: \(viewModel.user.age)")
             }
-            .navigationBarTitle(viewModel.state.user.name)            
+            .navigationBarTitle(viewModel.user.name)
         }
     }
 }
