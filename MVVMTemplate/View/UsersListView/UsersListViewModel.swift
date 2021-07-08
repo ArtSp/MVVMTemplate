@@ -3,12 +3,13 @@
 //  MVVMTemplate
 
 import Foundation
+import Combine
 
 //MARK: - State
 
 struct UsersListState {
-    var users: [AnyViewModel<UserDetailState, UserDetailInput>]
-    var isLoading: Bool
+    var users = [AnyViewModel<UserDetailState, UserDetailInput>]()
+    var isLoading = false
 }
 
 //MARK: - Input
@@ -22,27 +23,26 @@ enum UsersListInput {
 class UsersListViewModel: ViewModel {
 
     @Published
-    var state: UsersListState
+    var state = UsersListState()
     private let userService: UserService
 
     init(userService: UserService) {
         self.userService = userService
-        self.state = UsersListState(
-            users: [],
-            isLoading: false
-        )
     }
     
     private func fetchUsers() {
         guard !state.isLoading else { return }
         state.isLoading = true
-        userService.getUsers { [weak self] users in
-            guard let self = self else { return }
-            self.state.users = users.map {
-                AnyViewModel(UserDetailViewModel(user: $0, userService: self.userService))
-            }
-            self.state.isLoading = false
-        }
+        
+        userService.getUsers()
+            .map { values in values.map { AnyViewModel(UserDetailViewModel(user: $0, userService: self.userService)) } }
+            .assertNoFailure()
+            .sink(receiveCompletion: { _ in
+                self.state.isLoading = false
+            }, receiveValue: { users in
+                self.state.users = users
+            })
+            .store(in: &disposeBag)
     }
 
     func trigger(_ input: UsersListInput) {

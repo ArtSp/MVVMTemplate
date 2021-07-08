@@ -2,7 +2,6 @@
 //  KeyboardObserver.swift
 //  MVVMTemplate
 
-import UIKit
 import SwiftUI
 
 final class KeyboardObserver: ObservableObject {

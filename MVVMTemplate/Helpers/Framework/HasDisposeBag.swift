@@ -7,8 +7,13 @@ import Combine
 
 fileprivate var rawPointer = true
 
+public typealias DisposeBag = Set<AnyCancellable>
+
+public extension DisposeBag {
+    static var shared = DisposeBag()
+}
+
 public protocol HasDisposeBag: AnyObject {
-    typealias DisposeBag = Set<AnyCancellable>
     var disposeBag: DisposeBag { get set }
 }
 
