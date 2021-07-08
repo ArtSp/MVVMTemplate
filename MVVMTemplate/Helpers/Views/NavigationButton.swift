@@ -8,12 +8,12 @@ struct NavigationButton<Destination: View, Label: View>: View {
     typealias Action = () -> Void
     
     @State private var isActive: Bool = false
+    private var action: Action?
     private var destination: () -> Destination
     private var label: () -> Label
-    private var action: Action?
     
     init(
-        action: (() -> Void)? = nil,
+        action: Action? = nil,
         @ViewBuilder destination: @escaping () -> Destination,
         @ViewBuilder label: @escaping () -> Label
     ) {

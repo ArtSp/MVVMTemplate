@@ -1,5 +1,5 @@
 //
-//  SubscriberStore.swift
+//  HasDisposeBag.swift
 //  MVVMTemplate
 
 import Foundation
@@ -7,12 +7,12 @@ import Combine
 
 fileprivate var rawPointer = true
 
-public protocol SubscriberStore: AnyObject {
-    typealias Subscribers = Set<AnyCancellable>
-    var subscribers: Subscribers { get set }
+public protocol HasDisposeBag: AnyObject {
+    typealias DisposeBag = Set<AnyCancellable>
+    var disposeBag: DisposeBag { get set }
 }
 
-public extension SubscriberStore {
+public extension HasDisposeBag {
     
     private func synchronizedBag<T>( _ action: () -> T) -> T {
         objc_sync_enter(self)
@@ -21,13 +21,13 @@ public extension SubscriberStore {
         return result
     }
     
-    var subscribers: Subscribers {
+    var disposeBag: DisposeBag {
         get {
             synchronizedBag {
-                if let subscribers = objc_getAssociatedObject(self, &rawPointer) as? Subscribers {
+                if let subscribers = objc_getAssociatedObject(self, &rawPointer) as? DisposeBag {
                     return subscribers
                 }
-                let subscribers = Subscribers()
+                let subscribers = DisposeBag()
                 objc_setAssociatedObject(self, &rawPointer, subscribers, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
                 return subscribers
             }

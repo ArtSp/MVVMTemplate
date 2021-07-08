@@ -4,10 +4,10 @@
 
 import Foundation
 
-public protocol AnyOptional {
+protocol AnyOptional {
     var isNil: Bool { get }
 }
 
 extension Optional: AnyOptional {
-    public var isNil: Bool { self == nil }
+    var isNil: Bool { self == nil }
 }
