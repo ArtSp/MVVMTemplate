@@ -4,20 +4,30 @@
 
 import SwiftUI
 
+//MARK: - State
+
+struct CategoryDetailState: Identifiable {
+    var id: Category.ID { category.id }
+    var category: Category
+}
+
+//MARK: - View
+
 struct CategoryDetailView: View {
     @EnvironmentObject
     private var viewModel: AnyViewModel<CategoryDetailState, Never>
     
     var body: some View {
-        NavigationView {
-            VStack {
+            Form {
                 Text("CategoryName: \(viewModel.category.name)")
                 Text("Subitems: \(viewModel.category.items)")
             }
-            .navigationBarTitle(viewModel.category.name)
-        }
+            .navigationTitle(viewModel.category.name)
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
+
+//MARK: - Preview
 
 struct UserDetailView_Previews: PreviewProvider {
     

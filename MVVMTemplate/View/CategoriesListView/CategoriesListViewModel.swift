@@ -3,22 +3,6 @@
 //  MVVMTemplate
 
 import Foundation
-import Combine
-
-//MARK: - State
-
-struct CategoriesListState {
-    var categories = [AnyViewModel<CategoryDetailState, Never>]()
-    var isLoading = false
-}
-
-//MARK: - Input
-
-enum CategoriesListInput {
-    case fetchCategories
-}
-
-//MARK: - ViewModel
 
 class CategoriesListViewModel: ViewModel {
 

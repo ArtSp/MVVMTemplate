@@ -135,9 +135,9 @@
 		E6474CD32697191900717AE2 /* CategoriesListView */ = {
 			isa = PBXGroup;
 			children = (
+				E6474CCF2697191000717AE2 /* CategoryCell.swift */,
 				E6474CCD2697191000717AE2 /* CategoriesListView.swift */,
 				E6474CCE2697191000717AE2 /* CategoriesListViewModel.swift */,
-				E6474CCF2697191000717AE2 /* CategoryCell.swift */,
 			);
 			path = CategoriesListView;
 			sourceTree = "<group>";

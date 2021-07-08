@@ -4,15 +4,6 @@
 
 import Foundation
 
-//MARK: - State
-
-struct CategoryDetailState: Identifiable {
-    var id: Category.ID { category.id }
-    var category: Category
-}
-
-//MARK: - ViewModel
-
 class CategoryDetailViewModel: ViewModel {
 
     @Published

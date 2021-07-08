@@ -4,6 +4,8 @@
 
 import SwiftUI
 
+// MARK: - View
+
 struct CategoryCell: View {
     let category: Category
     
@@ -15,6 +17,8 @@ struct CategoryCell: View {
         }.padding()
     }
 }
+
+// MARK: - Preview
 
 struct UserCell_Previews: PreviewProvider {
     

@@ -4,6 +4,21 @@
 
 import SwiftUI
 
+//MARK: - State
+
+struct CategoriesListState {
+    var categories = [AnyViewModel<CategoryDetailState, Never>]()
+    var isLoading = false
+}
+
+//MARK: - Input
+
+enum CategoriesListInput {
+    case fetchCategories
+}
+
+// MARK: - View
+
 struct CategoriesListView: View {
     @EnvironmentObject
     var viewModel: AnyViewModel<CategoriesListState, CategoriesListInput>
@@ -34,6 +49,8 @@ struct CategoriesListView: View {
         }
     }
 }
+
+// MARK: - Preview
 
 struct CategoriesListView_Previews: PreviewProvider {
     static let model = CategoriesListViewModel(service: MarketServiceFake())

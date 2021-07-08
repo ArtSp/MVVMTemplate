@@ -29,13 +29,18 @@ final class MarketServiceImpl: MarketService {
 // MARK: - UserServiceFake
 
 final class MarketServiceFake: MarketService {
-    private var categories = [
+    private static let responseTime = 0.5
+    private static var categories = [
         Category(name: "Outdoor & Garden", items: 12),
         Category(name: "Electronics", items: 18),
     ]
     
     func getCategories() -> AnyPublisher<[Category], Never> {
-        Just(categories).eraseToAnyPublisher()
+        Future { promise in
+            DispatchQueue.main.asyncAfter(deadline: .now() + Self.responseTime) {
+                promise(.success(Self.categories))
+            }
+        }.eraseToAnyPublisher()
     }
 }
 
