@@ -1,3 +1,3 @@
 
-"UsersListView_users %lld" = "Users (%lld)";
-"UsersListView_loading" = "Loading...";
+"CategoriesListView_categories %lld" = "Categories (%lld)";
+"CategoriesListView_loading" = "Loading...";

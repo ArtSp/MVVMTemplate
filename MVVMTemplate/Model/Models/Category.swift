@@ -1,11 +1,11 @@
 //
-//  User.swift
+//  Category.swift
 //  MVVMTemplate
 
 import Foundation
 
-struct User: Identifiable, Codable {
+struct Category: Identifiable, Codable {
     var id = UUID()
     let name: String
-    let age: Int
+    let items: Int
 }

@@ -4,13 +4,13 @@
 
 import SwiftUI
 
-struct UserCell: View {
-    let user: User
+struct CategoryCell: View {
+    let category: Category
     
     var body: some View {
         HStack {
             Image(systemName: "person")
-            Text(user.name)
+            Text(category.name)
             Spacer()
         }.padding()
     }
@@ -18,14 +18,14 @@ struct UserCell: View {
 
 struct UserCell_Previews: PreviewProvider {
     
-    private static let fakeUser = User(name: "John", age: 21)
+    private static let fakeCategory = Category(name: "John", items: 21)
     
     static var previews: some View {
         Group {
-            UserCell(user: fakeUser)
+            CategoryCell(category: fakeCategory)
                 .environment(\.locale, .en_US)
             
-            UserCell(user: fakeUser)
+            CategoryCell(category: fakeCategory)
                 .environment(\.locale, .ru_RU)
             
         }.previewLayout(.fixed(width: 300, height: 80))
