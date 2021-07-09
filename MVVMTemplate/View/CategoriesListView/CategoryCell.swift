@@ -33,10 +33,14 @@ struct CategoryCell: View {
                     placeholder
                 }
             }
+            .aspectRatio(contentMode: .fit)
             .frame(width: 30, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            
             Text(category.name)
                 .textStyle(.h1)
+            
             Spacer()
+            
             Text("\(category.items)")
                 .textStyle(.body1)
                 .foregroundColor(.gray.opacity(0.8))
