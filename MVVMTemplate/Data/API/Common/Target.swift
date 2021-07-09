@@ -12,10 +12,7 @@ enum Target: String, Codable, CaseIterable {
     static var current: Target
     
     var title: String {
-        switch self {
-        case .production:   return "Production"
-        case .developement: return "Staging S2"
-        }
+        self.rawValue
     }
     
     var baseURL: URL {

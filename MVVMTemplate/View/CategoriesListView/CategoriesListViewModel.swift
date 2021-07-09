@@ -29,9 +29,11 @@ class CategoriesListViewModel: ViewModel {
             .map { categories in
                 categories.map { AnyViewModel(CategoryDetailViewModel(category: $0, service: self.service)) }
             }
-            .assertNoFailure()
-            .sink(receiveCompletion: { _ in
+            .sink(receiveCompletion: { completion in
                 self.state.isLoading = false
+                if case let .failure(error) = completion {
+                    self.state.showError(error)
+                }
             }, receiveValue: { categories in
                 self.state.categories = categories
             })

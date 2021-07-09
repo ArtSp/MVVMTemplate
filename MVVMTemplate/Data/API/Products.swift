@@ -6,7 +6,7 @@ import Foundation
 
 extension API.Products {
     
-    struct GetCategories: ModelTargetType, IsUnauthorized {
+    struct GetCategories: ModelTargetType, IsUnauthorized, PrintsBody {
         typealias Response = CategoriesResponse
         var method: TargetMethod { .get }
         var path: String { "category/categories" }

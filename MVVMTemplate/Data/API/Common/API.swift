@@ -9,13 +9,15 @@ import Alamofire
 import Combine
 
 enum API {
-    enum Headers {}
-    enum Products {}
     static let target = Target()
     
-    indirect enum Error {
+    enum Headers {}
+    enum Products {}
+    
+    /// Wrapper for different error types
+    indirect enum Error: Swift.Error {
         case moyaError(MoyaError)
-        case error(Error)
+        case error(Swift.Error)
     }
 }
 
@@ -25,11 +27,7 @@ extension API {
         guard var urlComponents = URLComponents(string: baseURL.absoluteString) else {
             fatalError("Failed to create URL Component from base URL")
         }
-        urlComponents.queryItems = []
-        parameters.forEach { key, value in
-            urlComponents.queryItems!.append(URLQueryItem(name: key, value: value))
-        }
-        
+        urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         return urlComponents.url!
     }
 }
@@ -48,22 +46,27 @@ extension Moya.TargetType {
 
 extension MoyaProvider {
     
-    static func defaultProvider() -> OnlineProvider<Target> {
+    static func `default`() -> OnlineProvider<Target> {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 45
         configuration.timeoutIntervalForResource = 45
         
         let session = Alamofire.Session(configuration: configuration)
         
-        return OnlineProvider(endpointClosure: { target in
-            return MoyaProvider.defaultEndpointMapping(for: target)
-        }, requestClosure: { endpoint, closure in
-            guard let request = try? endpoint.urlRequest() else {
-                closure(.failure(MoyaError.requestMapping("Failed to generete url in API.swift MoyaProvider extension")))
-                return
-            }
-            closure(.success(request))
-        }, session: session, plugins: [ErrorHandler.instance])
+        return OnlineProvider(
+            endpointClosure: { target in
+                return MoyaProvider.defaultEndpointMapping(for: target)
+            },
+            requestClosure: { endpoint, closure in
+                guard let request = try? endpoint.urlRequest() else {
+                    closure(.failure(MoyaError.requestMapping("Failed to generete url in API.swift MoyaProvider extension")))
+                    return
+                }
+                closure(.success(request))
+            },
+            session: session,
+            plugins: [ErrorHandler.shared]
+        )
     }
 }
 

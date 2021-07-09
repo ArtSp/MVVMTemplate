@@ -7,13 +7,13 @@ import Combine
 
 // MARK: - UserService
 protocol MarketService {
-    func getCategories() -> AnyPublisher<[Category], Never>
+    func getCategories() -> AnyPublisher<[Category], API.Error>
 }
 
 // MARK: - UserServiceImpl
 
 final class MarketServiceImpl: MarketService {
-    func getCategories() -> AnyPublisher<[Category], Never> {
+    func getCategories() -> AnyPublisher<[Category], API.Error> {
         API.Products.GetCategories().request()
             .receive(on: DispatchQueue.main)
             .map { response in
@@ -21,7 +21,6 @@ final class MarketServiceImpl: MarketService {
                     Category(name: $0.title, items: $0.subcategories?.count ?? 0)
                 }
             }
-            .assertNoFailure()
             .eraseToAnyPublisher()
     }
 }
@@ -35,7 +34,7 @@ final class MarketServiceFake: MarketService {
         Category(name: "Electronics", items: 18),
     ]
     
-    func getCategories() -> AnyPublisher<[Category], Never> {
+    func getCategories() -> AnyPublisher<[Category], API.Error> {
         Future { promise in
             DispatchQueue.main.asyncAfter(deadline: .now() + Self.responseTime) {
                 promise(.success(Self.categories))

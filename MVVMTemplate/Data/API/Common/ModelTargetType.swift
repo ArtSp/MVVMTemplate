@@ -97,9 +97,10 @@ extension Moya.TargetType {
 
 extension ModelTargetType where Self: Moya.TargetType {
     
-    func request() -> AnyPublisher<Response, MoyaError> {
+    func request() -> AnyPublisher<Response, API.Error> {
         CombineMoyaProviderRequest(self)
             .map(Response.self, using: decoder)
+            .mapError { API.Error.moyaError($0) }
             .handleEvents(receiveCompletion: { completion in
                 if case let .failure(error) = completion {
                     print("❌ Request failed with error:", error)
@@ -111,17 +112,17 @@ extension ModelTargetType where Self: Moya.TargetType {
 
 extension SuccessTargetType where Self: Moya.TargetType {
 
-    func request() -> AnyPublisher<Void, Error> {
+    func request() -> AnyPublisher<Void, API.Error> {
         CombineMoyaProviderRequest(self)
-            .mapError { $0 as Error }
-            .flatMap{ response -> AnyPublisher<Void, Error> in
+            .mapError { API.Error.moyaError($0) }
+            .flatMap{ response -> AnyPublisher<Void, API.Error> in
                 Future { promise in
                     switch response.statusCode {
                     case 200..<300:
                         promise(.success(()))
                     default:
                         let error = NSError(domain: NSPOSIXErrorDomain, code: response.statusCode)
-                        promise(.failure(error))
+                        promise(.failure(.error(error)))
                     }
                 }
                 .eraseToAnyPublisher()
@@ -141,7 +142,7 @@ extension TargetType {
 // MARK: - TargetType Provider caching
 
 private func CombineMoyaProviderRequest<T: TargetType>(_ target: T) -> AnyPublisher<Moya.Response, MoyaError> {
-    let provider = MoyaProvider<T>.defaultProvider()
+    let provider = MoyaProvider<T>.default()
 
     if target is IsUnauthorized {
         return provider

@@ -9,6 +9,13 @@ import SwiftUI
 struct CategoriesListState {
     var categories = [AnyViewModel<CategoryDetailState, Never>]()
     var isLoading = false
+    fileprivate var isShowingError = false
+    fileprivate var error: Error?
+    
+    mutating func showError(_ error: Error) {
+        isShowingError = true
+        self.error = error
+    }
 }
 
 //MARK: - Input
@@ -40,9 +47,13 @@ struct CategoriesListView: View {
                         }
                     }
                 }
-                
             }
             .navigationTitle("CategoriesListView_categories \(viewModel.categories.count)")
+            .alert(isPresented: $viewModel.state.isShowingError) {
+                Alert(title: Text("Error"),
+                      message: Text( viewModel.error?.localizedDescription ?? ""),
+                      dismissButton: .default(Text("Ok")))
+            }
             
         }.onAppear {
             viewModel.trigger(.fetchCategories)

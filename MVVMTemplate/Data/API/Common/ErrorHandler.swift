@@ -9,7 +9,8 @@ import UIKit
 
 final class ErrorHandler: PluginType {
     
-    static let instance = ErrorHandler()
+    static let shared = ErrorHandler()
+    private init() {}
     
     func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
         #if DEBUG
