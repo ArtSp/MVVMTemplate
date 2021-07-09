@@ -18,7 +18,6 @@ extension CategoriesResponse {
         let subcategories: [CategoryItem]?
         let tintColor: String?
         let title: String
-        let sadasd: String
     }
     
     struct BannerData: Decodable {

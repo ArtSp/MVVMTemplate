@@ -18,7 +18,11 @@ final class MarketServiceImpl: MarketService {
             .receive(on: DispatchQueue.main)
             .map { response in
                 response.categoryItems.map {
-                    Category(name: $0.title, items: $0.subcategories?.count ?? 0)
+                    Category(
+                        name: $0.title,
+                        items: $0.subcategories?.count ?? 0,
+                        imageUrl: !$0.imageUrl.isNil ? URL(string: $0.imageUrl!) : nil
+                    )
                 }
             }
             .eraseToAnyPublisher()
@@ -29,10 +33,7 @@ final class MarketServiceImpl: MarketService {
 
 final class MarketServiceFake: MarketService {
     private static let responseTime = 0.5
-    private static var categories = [
-        Category(name: "Outdoor & Garden", items: 12),
-        Category(name: "Electronics", items: 18),
-    ]
+    private static var categories = Category.fakes
     
     func getCategories() -> AnyPublisher<[Category], API.Error> {
         Future { promise in

@@ -31,13 +31,13 @@ struct CategoryDetailView: View {
 
 struct UserDetailView_Previews: PreviewProvider {
     
-    private static let fakeCategory = Category(name: "Category name", items: 21)
-    private static let fakeService = MarketServiceFake()
-    private static let fakeModel = CategoryDetailViewModel(category: fakeCategory,
-                                                           service: fakeService)
+    private static let category = Category.fakes[0]
+    private static let service = MarketServiceFake()
+    private static let model = CategoryDetailViewModel(category: category, service: service)
+    
     static var previews: some View {
         CategoryDetailView()
-            .environmentObject(AnyViewModel(fakeModel))
+            .environmentObject(AnyViewModel(model))
             .environment(\.locale, .en_US)
     }
 }
