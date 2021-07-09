@@ -11,6 +11,9 @@
 		E6474CD02697191000717AE2 /* CategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6474CCD2697191000717AE2 /* CategoriesListView.swift */; };
 		E6474CD12697191000717AE2 /* CategoriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6474CCE2697191000717AE2 /* CategoriesListViewModel.swift */; };
 		E6474CD22697191000717AE2 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6474CCF2697191000717AE2 /* CategoryCell.swift */; };
+		E6474CD526981E0800717AE2 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6474CD426981E0800717AE2 /* ErrorHandler.swift */; };
+		E6474CD726981FB300717AE2 /* Data+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6474CD626981FB300717AE2 /* Data+Ex.swift */; };
+		E6474CD92698217300717AE2 /* JSONCoder+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6474CD82698217300717AE2 /* JSONCoder+Ex.swift */; };
 		E66210542696D45100B2B861 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66210532696D45100B2B861 /* API.swift */; };
 		E66210582696D52100B2B861 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = E66210572696D52100B2B861 /* CombineMoya */; };
 		E662105A2696D52100B2B861 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E66210592696D52100B2B861 /* Moya */; };
@@ -66,6 +69,9 @@
 		E6474CCD2697191000717AE2 /* CategoriesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
 		E6474CCE2697191000717AE2 /* CategoriesListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesListViewModel.swift; sourceTree = "<group>"; };
 		E6474CCF2697191000717AE2 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		E6474CD426981E0800717AE2 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		E6474CD626981FB300717AE2 /* Data+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Ex.swift"; sourceTree = "<group>"; };
+		E6474CD82698217300717AE2 /* JSONCoder+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONCoder+Ex.swift"; sourceTree = "<group>"; };
 		E66210532696D45100B2B861 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E662105B2696D77F00B2B861 /* Headers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Headers.swift; sourceTree = "<group>"; };
 		E662105D2696D7BE00B2B861 /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
@@ -171,6 +177,7 @@
 			children = (
 				E66210532696D45100B2B861 /* API.swift */,
 				E66210652696DD6800B2B861 /* ModelTargetType.swift */,
+				E6474CD426981E0800717AE2 /* ErrorHandler.swift */,
 				E662105D2696D7BE00B2B861 /* Target.swift */,
 				E662105B2696D77F00B2B861 /* Headers.swift */,
 			);
@@ -341,6 +348,8 @@
 				E6E815B02696C51500407941 /* String+Ex.swift */,
 				E6E815B22696C54A00407941 /* KeyPath+Ex.swift */,
 				E6E815752695BC3300407941 /* Optional+Ex.swift */,
+				E6474CD626981FB300717AE2 /* Data+Ex.swift */,
+				E6474CD82698217300717AE2 /* JSONCoder+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -484,6 +493,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6474CD92698217300717AE2 /* JSONCoder+Ex.swift in Sources */,
 				E6E8158C2695C4FD00407941 /* CategoryDetailView.swift in Sources */,
 				E66210662696DD6800B2B861 /* ModelTargetType.swift in Sources */,
 				E62428B526971763004DAF79 /* CategoryDetailsViewModel.swift in Sources */,
@@ -493,7 +503,9 @@
 				E66210622696DC1500B2B861 /* CategoriesResponse.swift in Sources */,
 				E662105E2696D7BE00B2B861 /* Target.swift in Sources */,
 				E6E815AD2696C4D700407941 /* Collection+Ex.swift in Sources */,
+				E6474CD526981E0800717AE2 /* ErrorHandler.swift in Sources */,
 				E6E815B12696C51500407941 /* String+Ex.swift in Sources */,
+				E6474CD726981FB300717AE2 /* Data+Ex.swift in Sources */,
 				E6E815B32696C54A00407941 /* KeyPath+Ex.swift in Sources */,
 				E662105C2696D77F00B2B861 /* Headers.swift in Sources */,
 				E6E815A82696C46700407941 /* Locale+Ex.swift in Sources */,

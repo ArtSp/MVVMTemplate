@@ -14,9 +14,6 @@ typealias TargetMethod = Moya.Method
 /// `TargetType` with typealias `T: JSONJoy`
 protocol ModelTargetType: TargetType { associatedtype Response: Decodable }
 
-/// `TargetType` with typealias `T: JSONJoy` for array response
-protocol ModelArrayTargetType: ModelTargetType {}
-
 /// `TargetType` with success type
 protocol SuccessTargetType: TargetType {}
 
@@ -70,6 +67,8 @@ extension TargetType {
     }
 }
 
+// MARK: - TargetRequest
+
 enum TargetRequest {
     case parameters([String: Any])
     case queryParameters([String: String?])
@@ -78,7 +77,7 @@ enum TargetRequest {
     case encodable(Encodable)
 }
 
-// MARK: - Request methods
+// MARK: - Coders
 
 extension Moya.TargetType {
     var decoder: JSONDecoder {
@@ -98,91 +97,38 @@ extension Moya.TargetType {
 
 extension ModelTargetType where Self: Moya.TargetType {
     
-//    func requestSuccessOrFailure() -> AnyPublisher<SuccessModelOrFailure<Response>, Never> {
-//        return MoyaProviderRequest(self)
-////            .map(SuccessModelOrFailure<T>.self, using: decoder)
-//    }
-//
     func request() -> AnyPublisher<Response, MoyaError> {
-        return CombineMoyaProviderRequest(self)
+        CombineMoyaProviderRequest(self)
             .map(Response.self, using: decoder)
             .handleEvents(receiveCompletion: { completion in
                 if case let .failure(error) = completion {
-                    print("Request failed with error:", error)
+                    print("❌ Request failed with error:", error)
                 }
             })
             .eraseToAnyPublisher()
     }
 }
 
-extension ModelArrayTargetType where Self: Moya.TargetType {
-//
-//    func requestSuccessOrFailure() -> RxSwift.Single<SuccessModelOrFailure<T>> {
-//        return RxMoyaProviderRequest(self)
-//            .map(SuccessModelOrFailure<T>.self, using: decoder)
-//    }
-//
-    func request() -> AnyPublisher<[Response], MoyaError> {
-        return CombineMoyaProviderRequest(self)
-            .map([Response].self, using: decoder)
-            .handleEvents(receiveCompletion: { completion in
-                if case let .failure(error) = completion {
-                    print("Request failed with error:", error)
+extension SuccessTargetType where Self: Moya.TargetType {
+
+    func request() -> AnyPublisher<Void, Error> {
+        CombineMoyaProviderRequest(self)
+            .mapError { $0 as Error }
+            .flatMap{ response -> AnyPublisher<Void, Error> in
+                Future { promise in
+                    switch response.statusCode {
+                    case 200..<300:
+                        promise(.success(()))
+                    default:
+                        let error = NSError(domain: NSPOSIXErrorDomain, code: response.statusCode)
+                        promise(.failure(error))
+                    }
                 }
-            })
+                .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
 }
-
-//extension SuccessTargetType where Self: Moya.TargetType {
-//
-//    func requestSuccessOrFailure() -> RxSwift.Single<SuccessOrFailure> {
-//        return RxMoyaProviderRequest(self).flatMap { response in
-//            return Single<SuccessOrFailure>.create { single in
-//                if 200...299 ~= response.statusCode {
-//                    single(.success(.success))
-//                } else {
-//                    if let error = try? decoder.decode(ErrorModel.self, from: response.data) {
-//                        if let formErrors = error.formErrors, !formErrors.isEmpty {
-//                            single(.success(.failure(formErrors)))
-//                        } else if let error = error.error {
-//                            single(.success(.failure([error])))
-//                        } else {
-//                            let error = NSError(domain: NSPOSIXErrorDomain, code: response.statusCode)
-//                            single(.error(error))
-//                        }
-//                    } else {
-//                        let error = NSError(domain: NSPOSIXErrorDomain, code: response.statusCode)
-//                        single(.error(error))
-//                    }
-//                }
-//
-//                return Disposables.create()
-//            }
-//        }
-//    }
-//
-//    func request() -> Single<Void> {
-//        return RxMoyaProviderRequest(self).flatMap { response in
-//            return Single<Void>.create { single in
-//                if 200...299 ~= response.statusCode {
-//                    single(.success(()))
-//                } else {
-//                    let error = NSError(domain: NSPOSIXErrorDomain, code: response.statusCode)
-//                    single(.error(error))
-//                }
-//
-//                return Disposables.create()
-//            }
-//        }
-//    }
-//
-//    func driveRequest() -> Driver<Void> {
-//        return request()
-//            .asDriverOrEmpty()
-//    }
-//
-//}
 
 extension TargetType {
     
@@ -201,26 +147,10 @@ private func CombineMoyaProviderRequest<T: TargetType>(_ target: T) -> AnyPublis
         return provider
             .request(target)
             .handleEvents(receiveCompletion: { _ in
-                _ = provider // Keeps strong reference to the provider
+                _ = provider // Keeps strong reference to the provider until completed
             })
             .eraseToAnyPublisher()
     } else {
         fatalError("Not impplemented")
-    }
-}
-
-private extension JSONEncoder.DateEncodingStrategy {
-    static var `default`: JSONEncoder.DateEncodingStrategy {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = Constants.appDateFormat
-        return JSONEncoder.DateEncodingStrategy.formatted(dateFormatter)
-    }
-}
-
-extension JSONDecoder.DateDecodingStrategy {
-    static var `default`: JSONDecoder.DateDecodingStrategy {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = Constants.appDateFormat
-        return JSONDecoder.DateDecodingStrategy.formatted(dateFormatter)
     }
 }

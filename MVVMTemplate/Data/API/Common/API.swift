@@ -12,10 +12,15 @@ enum API {
     enum Headers {}
     enum Products {}
     static let target = Target()
+    
+    indirect enum Error {
+        case moyaError(MoyaError)
+        case error(Error)
+    }
 }
 
 extension API {
-    static var baseURL: URL! { Target.current.baseURL }
+    static var baseURL: URL { Target.current.baseURL }
     static func baseUlrWithAddedQueryParameters(_ parameters: [String: String?]) -> Foundation.URL {
         guard var urlComponents = URLComponents(string: baseURL.absoluteString) else {
             fatalError("Failed to create URL Component from base URL")
@@ -39,14 +44,11 @@ extension Moya.TargetType {
     var validationType: Moya.ValidationType { .none }
 }
 
-protocol ParametersInURL {}
-
 // MARK: - Authorized MoyaProvider
 
 extension MoyaProvider {
     
     static func defaultProvider() -> OnlineProvider<Target> {
-        
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 45
         configuration.timeoutIntervalForResource = 45
@@ -61,7 +63,7 @@ extension MoyaProvider {
                 return
             }
             closure(.success(request))
-        }, session: session, plugins: [/*ErrorHandler.instance*/])
+        }, session: session, plugins: [ErrorHandler.instance])
     }
 }
 
