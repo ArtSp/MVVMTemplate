@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-extension View {
+public extension View {
     @ViewBuilder func textStyle(_ style: TextStyle) -> some View {
         self.font(style.font)
     }
@@ -15,7 +15,7 @@ extension View {
     }
 }
 
-struct TextStyle {
+public struct TextStyle {
     var font: Font
     init(_ font: Font) {
         self.font = font

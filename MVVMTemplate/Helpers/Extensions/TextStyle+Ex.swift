@@ -1,10 +1,8 @@
 //
-//  TextStyle.swift
+//  TextStyle+Ex.swift
 //  MVVMTemplate
 
 import SwiftUI
-
-
 
 extension TextStyle {
     static var body1 = TextStyle(.body.weight(.light))
