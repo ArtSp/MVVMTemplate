@@ -19,7 +19,9 @@ public protocol HasDisposeBag: AnyObject {
 
 public extension HasDisposeBag {
     
-    private func synchronizedBag<T>( _ action: () -> T) -> T {
+    private func synchronizedBag<T>(
+        _ action: () -> T
+    ) -> T {
         objc_sync_enter(self)
         let result = action()
         objc_sync_exit(self)

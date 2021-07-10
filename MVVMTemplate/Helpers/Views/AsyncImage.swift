@@ -43,7 +43,9 @@ struct AsyncImage<Placeholder: View>: View {
 // MARK: - ImageCache
 
 private protocol ImageCache {
-    subscript(_ url: URL) -> UIImage? { get set }
+    subscript(
+        _ url: URL
+    ) -> UIImage? { get set }
 }
 
 // MARK: - ImageCacheKey
@@ -71,7 +73,9 @@ private struct TemporaryImageCache: ImageCache {
         return cache
     }()
     
-    subscript(_ key: URL) -> UIImage? {
+    subscript(
+        _ key: URL
+    ) -> UIImage? {
         get { cache.object(forKey: key as NSURL) }
         set { newValue == nil ? cache.removeObject(forKey: key as NSURL) : cache.setObject(newValue!, forKey: key as NSURL) }
     }
@@ -90,7 +94,10 @@ private final class ImageLoader: ObservableObject {
     
     private static let imageProcessingQueue = DispatchQueue(label: "image-processing")
     
-    init(url: URL, cache: ImageCache? = nil) {
+    init(
+        url: URL,
+        cache: ImageCache? = nil
+    ) {
         self.url = url
         self.cache = cache
     }
@@ -131,7 +138,9 @@ private final class ImageLoader: ObservableObject {
         isLoading = false
     }
     
-    private func cache(_ image: UIImage?) {
+    private func cache(
+        _ image: UIImage?
+    ) {
         image.map { cache?[url] = $0 }
     }
 }

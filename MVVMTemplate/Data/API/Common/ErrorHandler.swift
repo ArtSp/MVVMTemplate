@@ -58,19 +58,26 @@ protocol PrintsBody: PrintsRequestBody & PrintsResponseBody {}
 
 private extension Response {
     /// Prints body serialized to json or string
-    func printBody(serialization: Data.Serialization = .json(.utf8)) {
+    func printBody(
+        serialization: Data.Serialization = .json(.utf8)
+    ) {
         print(data: data, serialization: serialization)
     }
 }
 
 private extension URLRequest {
     /// Prints body serialized to json or string
-    func printBody(serialization: Data.Serialization = .json(.utf8)) {
+    func printBody(
+        serialization: Data.Serialization = .json(.utf8)
+    ) {
         print(data: httpBody, serialization: serialization)
     }
 }
 
-private func print(data: Data?, serialization: Data.Serialization) {
+private func print(
+    data: Data?,
+    serialization: Data.Serialization
+) {
     print("🕵🏻‍♂️ Body:")
     print(data?.toString(serialization: serialization) ?? data?.toString(serialization: .string(.utf8)) ?? "Empty")
 }

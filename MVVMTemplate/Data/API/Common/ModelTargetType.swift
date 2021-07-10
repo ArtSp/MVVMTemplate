@@ -12,7 +12,9 @@ typealias TargetMethod = Moya.Method
 // MARK: - Protocols
 
 /// `TargetType` with typealias `T: JSONJoy`
-protocol ModelTargetType: TargetType { associatedtype Response: Decodable }
+protocol ModelTargetType: TargetType {
+    associatedtype Response: Decodable
+}
 
 /// `TargetType` with success type
 protocol SuccessTargetType: TargetType {}
@@ -133,7 +135,9 @@ extension TargetType {
 
 // MARK: - TargetType Provider caching
 
-private func CombineMoyaProviderRequest<T: TargetType>(_ target: T) -> AnyPublisher<Moya.Response, MoyaError> {
+private func CombineMoyaProviderRequest<T: TargetType>(
+    _ target: T
+) -> AnyPublisher<Moya.Response, MoyaError> {
     let provider = MoyaProvider<T>.default()
 
     if target is IsUnauthorized {

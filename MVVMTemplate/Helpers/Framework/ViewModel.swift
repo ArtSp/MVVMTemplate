@@ -36,15 +36,21 @@ final class AnyViewModel<State, Input>: ViewModel {
         set { wrappedStateSetter(newValue) }
     }
 
-    func trigger(_ input: Input) {
+    func trigger(
+        _ input: Input
+    ) {
         wrappedTrigger(input)
     }
 
-    subscript<Value>(dynamicMember keyPath: KeyPath<State, Value>) -> Value {
+    subscript<Value>(
+        dynamicMember keyPath: KeyPath<State, Value>
+    ) -> Value {
         state[keyPath: keyPath]
     }
 
-    init<V: ViewModel>(_ viewModel: V) where V.State == State, V.Input == Input {
+    init<V: ViewModel>(
+        _ viewModel: V
+    ) where V.State == State, V.Input == Input {
         self.wrappedObjectWillChange = { viewModel.objectWillChange.eraseToAnyPublisher() }
         self.wrappedTrigger = viewModel.trigger
         self.wrappedStateGetter = { viewModel.state }

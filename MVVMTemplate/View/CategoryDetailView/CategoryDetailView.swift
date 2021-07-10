@@ -18,12 +18,12 @@ struct CategoryDetailView: View {
     private var viewModel: AnyViewModel<CategoryDetailState, Never>
     
     var body: some View {
-            Form {
-                Text("CategoryName: \(viewModel.category.name)")
-                Text("Subitems: \(viewModel.category.items)")
-            }
-            .navigationTitle(viewModel.category.name)
-            .navigationBarTitleDisplayMode(.inline)
+        Form {
+            Text("CategoryName: \(viewModel.category.name)")
+            Text("Subitems: \(viewModel.category.items)")
+        }
+        .navigationTitle(viewModel.category.name)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

@@ -14,7 +14,9 @@ extension Data {
     /// Main use is to print out BE responses
     ///
     ///     print(response.data?.toString(serialization: .json(.utf8)) ?? "Empty")
-    func toString(serialization: Serialization) -> String? {
+    func toString(
+        serialization: Serialization
+    ) -> String? {
         switch serialization {
         case .json(let encoding):
             guard let json = try? JSONSerialization.jsonObject(with: self, options: []),

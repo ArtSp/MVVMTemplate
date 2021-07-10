@@ -13,7 +13,11 @@ public struct UserDefault<Value: Codable> {
     private var container: UserDefaults
     private let publisher = PassthroughSubject<Value, Never>()
     
-    init(key: String, defaultValue: Value, container: UserDefaults = .standard) {
+    init(
+        key: String,
+        defaultValue: Value,
+        container: UserDefaults = .standard
+    ) {
         self.key = key
         self.defaultValue = defaultValue
         self.container = container
@@ -50,7 +54,9 @@ public struct UserDefault<Value: Codable> {
 }
 
 public extension UserDefault where Value: ExpressibleByNilLiteral {
-    init(key: String) {
+    init(
+        key: String
+    ) {
         self.init(key: key, defaultValue: nil)
     }
 }

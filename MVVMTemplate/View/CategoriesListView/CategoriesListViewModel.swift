@@ -10,11 +10,15 @@ class CategoriesListViewModel: ViewModel {
     var state = CategoriesListState()
     private let service: MarketService
 
-    init(service: MarketService) {
+    init(
+        service: MarketService
+    ) {
         self.service = service
     }
     
-    func trigger(_ input: CategoriesListInput) {
+    func trigger(
+        _ input: CategoriesListInput
+    ) {
         switch input {
         case .fetchCategories:
             fetchUsers()

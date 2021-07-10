@@ -12,7 +12,9 @@ struct CategoriesListState {
     fileprivate var isShowingError = false
     fileprivate var error: Error?
     
-    mutating func showError(_ error: Error) {
+    mutating func showError(
+        _ error: Error
+    ) {
         isShowingError = true
         self.error = error
     }

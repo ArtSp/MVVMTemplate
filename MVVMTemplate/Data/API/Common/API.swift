@@ -69,14 +69,15 @@ final class OnlineProvider<Target> where Target: Moya.TargetType {
     
     fileprivate let provider: MoyaProvider<Target>
     
-    init(endpointClosure: @escaping Moya.MoyaProvider<Target>.EndpointClosure = MoyaProvider.defaultEndpointMapping,
-         requestClosure: @escaping Moya.MoyaProvider<Target>.RequestClosure,
-         stubClosure: @escaping Moya.MoyaProvider<Target>.StubClosure = MoyaProvider.neverStub,
-         callbackQueue: DispatchQueue? = nil,
-         session: Moya.Session = MoyaProvider<Target>.defaultAlamofireSession(),
-         plugins: [Moya.PluginType] = [],
-         trackInflights: Bool = false) {
-        
+    init(
+        endpointClosure: @escaping Moya.MoyaProvider<Target>.EndpointClosure = MoyaProvider.defaultEndpointMapping,
+        requestClosure: @escaping Moya.MoyaProvider<Target>.RequestClosure,
+        stubClosure: @escaping Moya.MoyaProvider<Target>.StubClosure = MoyaProvider.neverStub,
+        callbackQueue: DispatchQueue? = nil,
+        session: Moya.Session = MoyaProvider<Target>.defaultAlamofireSession(),
+        plugins: [Moya.PluginType] = [],
+        trackInflights: Bool = false
+    ) {
         provider = MoyaProvider(endpointClosure: endpointClosure,
                                 requestClosure: requestClosure,
                                 stubClosure: stubClosure,
@@ -86,7 +87,9 @@ final class OnlineProvider<Target> where Target: Moya.TargetType {
                                 trackInflights: trackInflights)
     }
     
-    func request(_ target: Target) -> AnyPublisher<Moya.Response, MoyaError> {
+    func request(
+        _ target: Target
+    ) -> AnyPublisher<Moya.Response, MoyaError> {
         provider.requestPublisher(target)
     }
 }
