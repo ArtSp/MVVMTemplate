@@ -23,13 +23,6 @@ enum API {
 
 extension API {
     static var baseURL: URL { Target.current.baseURL }
-    static func baseUlrWithAddedQueryParameters(_ parameters: [String: String?]) -> Foundation.URL {
-        guard var urlComponents = URLComponents(string: baseURL.absoluteString) else {
-            fatalError("Failed to create URL Component from base URL")
-        }
-        urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
-        return urlComponents.url!
-    }
 }
 
 // MARK: - Default TargetType values
@@ -55,7 +48,7 @@ extension MoyaProvider {
         
         return OnlineProvider(
             endpointClosure: { target in
-                return MoyaProvider.defaultEndpointMapping(for: target)
+                MoyaProvider.defaultEndpointMapping(for: target)
             },
             requestClosure: { endpoint, closure in
                 guard let request = try? endpoint.urlRequest() else {
@@ -70,6 +63,8 @@ extension MoyaProvider {
     }
 }
 
+// MARK: - OnlineProvider
+
 final class OnlineProvider<Target> where Target: Moya.TargetType {
     
     fileprivate let provider: MoyaProvider<Target>
@@ -82,13 +77,13 @@ final class OnlineProvider<Target> where Target: Moya.TargetType {
          plugins: [Moya.PluginType] = [],
          trackInflights: Bool = false) {
         
-        self.provider = MoyaProvider(endpointClosure: endpointClosure,
-                                     requestClosure: requestClosure,
-                                     stubClosure: stubClosure,
-                                     callbackQueue: callbackQueue,
-                                     session: session,
-                                     plugins: plugins,
-                                     trackInflights: trackInflights)
+        provider = MoyaProvider(endpointClosure: endpointClosure,
+                                requestClosure: requestClosure,
+                                stubClosure: stubClosure,
+                                callbackQueue: callbackQueue,
+                                session: session,
+                                plugins: plugins,
+                                trackInflights: trackInflights)
     }
     
     func request(_ target: Target) -> AnyPublisher<Moya.Response, MoyaError> {

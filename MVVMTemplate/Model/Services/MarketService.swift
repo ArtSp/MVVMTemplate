@@ -40,7 +40,8 @@ final class MarketServiceFake: MarketService {
             DispatchQueue.main.asyncAfter(deadline: .now() + Self.responseTime) {
                 promise(.success(Self.categories))
             }
-        }.eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
     }
 }
 

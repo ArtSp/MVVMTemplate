@@ -42,8 +42,12 @@ struct CategoriesListView: View {
                     }
                 } else {
                     List(viewModel.categories) { viewModel in
-                        NavigationLink(destination: CategoryDetailView().environmentObject(viewModel)) {
+                        if viewModel.category.items == .zero {
                             CategoryCell(category: viewModel.category)
+                        } else {
+                            NavigationLink(destination: CategoryDetailView().environmentObject(viewModel)) {
+                                CategoryCell(category: viewModel.category)
+                            }
                         }
                     }
                 }
@@ -54,8 +58,8 @@ struct CategoriesListView: View {
                       message: Text( viewModel.error?.localizedDescription ?? ""),
                       dismissButton: .default(Text("Ok")))
             }
-            
-        }.onAppear {
+        }
+        .onAppear {
             viewModel.trigger(.fetchCategories)
         }
     }

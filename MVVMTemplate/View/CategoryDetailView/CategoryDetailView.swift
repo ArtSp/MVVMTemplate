@@ -36,8 +36,13 @@ struct UserDetailView_Previews: PreviewProvider {
     private static let model = CategoryDetailViewModel(category: category, service: service)
     
     static var previews: some View {
-        CategoryDetailView()
-            .environmentObject(AnyViewModel(model))
-            .environment(\.locale, .en_US)
+        Group {
+            CategoryDetailView()
+                .environmentObject(AnyViewModel(model))
+                .environment(\.locale, .en_US)
+            CategoryDetailView()
+                .environmentObject(AnyViewModel(model))
+                .environment(\.locale, .ru_RU)
+        }
     }
 }

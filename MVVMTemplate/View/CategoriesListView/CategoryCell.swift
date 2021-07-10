@@ -35,16 +35,17 @@ struct CategoryCell: View {
             }
             .aspectRatio(contentMode: .fit)
             .frame(width: 30, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            
             Text(category.name)
                 .textStyle(.h1)
-            
             Spacer()
+            if category.items > 0 {
+                Text("\(category.items)")
+                    .textStyle(.body1)
+                    .foregroundColor(.gray.opacity(0.8))                
+            }
             
-            Text("\(category.items)")
-                .textStyle(.body1)
-                .foregroundColor(.gray.opacity(0.8))
-        }.padding(.vertical)
+        }
+        .padding(.vertical)
     }
 }
 

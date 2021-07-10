@@ -27,7 +27,9 @@ class CategoriesListViewModel: ViewModel {
         
         service.getCategories()
             .map { categories in
-                categories.map { AnyViewModel(CategoryDetailViewModel(category: $0, service: self.service)) }
+                categories.map {
+                    AnyViewModel(CategoryDetailViewModel(category: $0, service: self.service))
+                }
             }
             .sink(receiveCompletion: { completion in
                 self.state.isLoading = false

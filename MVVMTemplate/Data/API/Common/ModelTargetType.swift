@@ -20,7 +20,7 @@ protocol SuccessTargetType: TargetType {}
 /// Prevents showing automatic error
 protocol HandlesErrorsLocaly {}
 
-/// Request does not require token
+/// Request does not require authorization
 protocol IsUnauthorized {}
 
 /// Use on Moya,TargetType to specify date decoding strategy
@@ -47,14 +47,7 @@ extension TargetType {
     var request: TargetRequest? { nil }
     var encoding: URLEncoding? { nil }
     
-    var baseURL: URL {
-        switch request {
-        case let .queryParameters(queryParameters):
-            return API.baseUlrWithAddedQueryParameters(queryParameters)
-        default:
-            return API.baseURL
-        }
-    }
+    var baseURL: URL { API.baseURL }
     
     var task: Moya.Task {
         switch request {
@@ -62,7 +55,7 @@ extension TargetType {
         case let .parameters(parameters): return .requestParameters(parameters: parameters, encoding: encoding ?? JSONEncoding.default)
         case let .encodable(encodable): return .requestCustomJSONEncodable(encodable, encoder: encoder)
         case let .data(data): return .requestData(data)
-        case .none, .queryParameters: return .requestPlain
+        case .none : return .requestPlain
         }
     }
 }
@@ -71,7 +64,6 @@ extension TargetType {
 
 enum TargetRequest {
     case parameters([String: Any])
-    case queryParameters([String: String?])
     case multipart([MultipartFormData])
     case data(Data)
     case encodable(Encodable)
@@ -148,10 +140,10 @@ private func CombineMoyaProviderRequest<T: TargetType>(_ target: T) -> AnyPublis
         return provider
             .request(target)
             .handleEvents(receiveCompletion: { _ in
-                _ = provider // Keeps strong reference to the provider until completed
+                _ = provider // Keeps strong reference to the provider until completed or failed
             })
             .eraseToAnyPublisher()
     } else {
-        fatalError("Not impplemented")
+        fatalError("Not implemented")
     }
 }

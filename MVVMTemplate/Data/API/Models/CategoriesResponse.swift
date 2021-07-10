@@ -25,7 +25,6 @@ extension CategoriesResponse {
         let link: Link
         let imageWidth: Int?
         let imageHeight: Int?
-        
     }
     
     struct Link: Decodable {
