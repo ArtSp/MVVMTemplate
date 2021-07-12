@@ -4,8 +4,6 @@
 
 import Foundation
 
-
-
 /// Keypath setter for closures
 ///
 /// Example in `test()`:

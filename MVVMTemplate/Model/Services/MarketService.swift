@@ -17,13 +17,7 @@ final class MarketServiceImpl: MarketService {
         API.Products.GetCategories().request()
             .receive(on: DispatchQueue.main)
             .map { response in
-                response.categoryItems.map {
-                    Category(
-                        name: $0.title,
-                        items: $0.subcategories?.count ?? 0,
-                        imageUrl: !$0.imageUrl.isNil ? URL(string: $0.imageUrl!) : nil
-                    )
-                }
+                response.categoryItems.map { $0.toDomain() }
             }
             .eraseToAnyPublisher()
     }
