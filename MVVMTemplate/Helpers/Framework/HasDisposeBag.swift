@@ -5,7 +5,7 @@
 import Foundation
 import Combine
 
-fileprivate var rawPointer = true
+private var rawPointer = true
 
 public typealias DisposeBag = Set<AnyCancellable>
 

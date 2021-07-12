@@ -1,0 +1,81 @@
+# List of rules with definitions
+# https://github.com/realm/SwiftLint/blob/master/Rules.md
+
+# Find all the available rules by running:
+# 1. With terminal navigate to project folder
+# 2. Write: swiftlint rules
+
+# rule identifiers to exclude from running
+disabled_rules:
+ - operator_whitespace
+ - trailing_whitespace
+ - trailing_comma
+ - nesting
+ - identifier_name
+
+
+opt_in_rules:
+ - attributes
+ - closure_spacing
+ - empty_count
+ - explicit_init
+ - nimble_operator
+ - operator_usage_whitespace
+ - overridden_super_call
+ - prohibited_super_call
+ - redundant_nil_coalescing
+ - closure_end_indentation
+ - multiline_parameters
+ - vertical_parameter_alignment_on_call
+ - object_literal
+ - SuperCallRule
+
+# rules with additional configuration
+line_length: 160
+type_body_length: 300
+
+cyclomatic_complexity:
+ ignores_case_statements: true
+
+private_outlet:
+ allow_private_set: true
+
+trailing_whitespace:
+ ignores_empty_lines: true
+ ignores_comments: true
+
+object_literal:
+ color_literal: false
+
+function_parameter_count:
+ warning: 6
+ error: 8
+
+function_body_length:
+ warning: 50
+ error: 70
+
+type_name:
+ min_length: 1
+ max_length: 60
+
+identifier_name:
+ min_length: 2
+ max_length: 60
+
+file_length:
+ warning: 750
+ error: 1000
+
+type_body_length:
+ warning: 500
+ error: 550
+
+excluded:
+- Carthage
+- saco/Frameworks
+
+# Temporary disable until current style warnings are fixed.
+#warning_threshold: 15
+
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit, html, emoji)

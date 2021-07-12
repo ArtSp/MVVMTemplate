@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-//MARK: - State
+// MARK: - State
 
 struct CategoriesListState {
     var categories = [AnyViewModel<CategoryDetailState, Never>]()
@@ -20,7 +20,7 @@ struct CategoriesListState {
     }
 }
 
-//MARK: - Input
+// MARK: - Input
 
 enum CategoriesListInput {
     case fetchCategories

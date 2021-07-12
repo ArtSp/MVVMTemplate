@@ -34,7 +34,7 @@ struct CategoryCell: View {
                 }
             }
             .aspectRatio(contentMode: .fit)
-            .frame(width: 30, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            .frame(width: 30, height: 30, alignment: .center)
             Text(category.name)
                 .textStyle(.h1)
             Spacer()

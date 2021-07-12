@@ -5,13 +5,15 @@
 import SwiftUI
 
 public extension View {
-    @ViewBuilder func textStyle(
+    @ViewBuilder
+    func textStyle(
         _ style: TextStyle
     ) -> some View {
         self.font(style.font)
     }
     
-    @ViewBuilder func textStyle(
+    @ViewBuilder
+    func textStyle(
         _ style: TextStyle,
         color: Color
     ) -> some View {
@@ -19,12 +21,16 @@ public extension View {
             .foregroundColor(color)
     }
     
-    @ViewBuilder func isHidden(
+    @ViewBuilder
+    func isHidden(
         _ hidden: Bool,
         remove: Bool = true
     ) -> some View {
-        if !hidden { self }
-        else if !remove { self.hidden() }
+        if !hidden {
+            self
+        } else if !remove {
+            self.hidden()
+        }
     }
     
     func Print(

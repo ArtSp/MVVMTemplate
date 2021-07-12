@@ -23,7 +23,6 @@ public struct UserDefault<Value: Codable> {
         self.container = container
     }
     
-
     /// Value publisher
     ///
     ///     let subscription = UserDefaults.$username.sink { username in

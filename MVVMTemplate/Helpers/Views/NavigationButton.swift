@@ -7,7 +7,8 @@ import SwiftUI
 struct NavigationButton<Destination: View, Label: View>: View {
     typealias Action = () -> Void
     
-    @State private var isActive: Bool = false
+    @State
+    private var isActive: Bool = false
     private var action: Action?
     private var destination: () -> Destination
     private var label: () -> Label
@@ -23,16 +24,19 @@ struct NavigationButton<Destination: View, Label: View>: View {
     }
 
     var body: some View {
-        Button(action: {
-            action?()
-            isActive.toggle()
-        }) {
-            label()
-                .background(
-                    ScrollView { // Fixes a bug where the navigation bar may become hidden on the pushed view
-                        NavigationLink(destination: destination(), isActive: $isActive) { EmptyView() }
-                    }
-                )
-        }
+        Button(
+            action: {
+                action?()
+                isActive.toggle()
+            },
+            label: {
+                label()
+                    .background(
+                        ScrollView { // Fixes a bug where the navigation bar may become hidden on the pushed view
+                            NavigationLink(destination: destination(), isActive: $isActive) { EmptyView() }
+                        }
+                    )
+            }
+        )
     }
 }

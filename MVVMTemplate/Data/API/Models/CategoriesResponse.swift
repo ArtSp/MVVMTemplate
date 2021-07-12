@@ -2,7 +2,6 @@
 //  CategoriesResponse.swift
 //  MVVMTemplate
 
-
 import Foundation
 
 struct CategoriesResponse: Decodable {

@@ -109,7 +109,7 @@ extension SuccessTargetType where Self: Moya.TargetType {
     func request() -> AnyPublisher<Void, API.Error> {
         CombineMoyaProviderRequest(self)
             .mapError { API.Error.moyaError($0) }
-            .flatMap{ response -> AnyPublisher<Void, API.Error> in
+            .flatMap { response -> AnyPublisher<Void, API.Error> in
                 Future { promise in
                     switch response.statusCode {
                     case 200..<300:

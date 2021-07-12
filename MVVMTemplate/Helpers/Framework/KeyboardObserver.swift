@@ -26,13 +26,15 @@ final class KeyboardObserver: ObservableObject {
         NotificationCenter.default.removeObserver(self)
     }
 
-    @objc private func keyboardWillShow(
+    @objc
+    private func keyboardWillShow(
         notification: Notification
     ) {
         rect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
     }
 
-    @objc private func keyboardWillHide(
+    @objc
+    private func keyboardWillHide(
         notification: Notification
     ) {
         rect = .zero

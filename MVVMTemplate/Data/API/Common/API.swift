@@ -93,4 +93,3 @@ final class OnlineProvider<Target> where Target: Moya.TargetType {
         provider.requestPublisher(target)
     }
 }
-

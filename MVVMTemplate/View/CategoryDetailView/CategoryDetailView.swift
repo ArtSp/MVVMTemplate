@@ -4,14 +4,14 @@
 
 import SwiftUI
 
-//MARK: - State
+// MARK: - State
 
 struct CategoryDetailState: Identifiable {
     var id: Category.ID { category.id }
     var category: Category
 }
 
-//MARK: - View
+// MARK: - View
 
 struct CategoryDetailView: View {
     @EnvironmentObject
@@ -27,7 +27,7 @@ struct CategoryDetailView: View {
     }
 }
 
-//MARK: - Preview
+// MARK: - Preview
 
 struct UserDetailView_Previews: PreviewProvider {
     

@@ -8,7 +8,7 @@ func setter<Object: AnyObject, Value>(
     keyPath: ReferenceWritableKeyPath<Object, Value>,
     on object: Object
 ) -> (Value) -> Void {
-    { [weak object] value in
+    return { [weak object] value in
         object?[keyPath: keyPath] = value
     }
 }
