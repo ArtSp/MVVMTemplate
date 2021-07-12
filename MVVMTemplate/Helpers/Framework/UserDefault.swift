@@ -48,6 +48,7 @@ public struct UserDefault<Value: Codable> {
                 let data = try? JSONEncoder().encode(newValue)
                container.setValue(data, forKey: key)
             }
+            publisher.send(newValue)
         }
     }
 }
