@@ -5,7 +5,7 @@
 import Combine
 import Foundation
 
-protocol ViewModel: ObservableObject, HasDisposeBag where ObjectWillChangePublisher.Output == Void {
+protocol ViewModel: ObservableObject, CancelableStore where ObjectWillChangePublisher.Output == Void {
     associatedtype State
     associatedtype Input // If there is no events, just use `Never`
 

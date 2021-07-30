@@ -8,12 +8,21 @@ class CategoriesListViewModel: ViewModel {
 
     @Published
     var state = CategoriesListState()
-    private let service: MarketService
+    private let marketService: MarketService
+    private let localStorageService: LocalStorageService
 
     init(
-        service: MarketService
+        marketService: MarketService,
+        localStorageService: LocalStorageService
     ) {
-        self.service = service
+        self.marketService = marketService
+        self.localStorageService = localStorageService
+        
+        localStorageService.getProfileImage()
+            .sink(receiveValue: {
+                self.state.profileImage = $0
+            })
+            .store(in: &cancelables)
     }
     
     func trigger(
@@ -22,6 +31,12 @@ class CategoriesListViewModel: ViewModel {
         switch input {
         case .fetchCategories:
             fetchUsers()
+            
+        case .showImagePicker:
+            state.isShowingImagePicker = true
+            
+        case let .selectedProfileImage(image):
+            localStorageService.setProfileImage(image)
         }
     }
     
@@ -29,10 +44,10 @@ class CategoriesListViewModel: ViewModel {
         guard !state.isLoading else { return }
         state.isLoading = true
         
-        service.getCategories()
+        marketService.getCategories()
             .map { categories in
                 categories.map {
-                    AnyViewModel(CategoryDetailViewModel(category: $0, service: self.service))
+                    AnyViewModel(CategoryDetailViewModel(category: $0, marketService: self.marketService))
                 }
             }
             .sink(receiveCompletion: { completion in
@@ -43,6 +58,16 @@ class CategoriesListViewModel: ViewModel {
             }, receiveValue: { categories in
                 self.state.categories = categories
             })
-            .store(in: &disposeBag)
+            .store(in: &cancelables)
+    }
+}
+
+extension CategoriesListViewModel {
+    
+    static func fake() -> CategoriesListViewModel {
+        .init(
+            marketService: MarketServiceFake(),
+            localStorageService: LocalStorageServiceFake()
+        )
     }
 }

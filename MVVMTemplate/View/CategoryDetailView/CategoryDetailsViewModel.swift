@@ -8,17 +8,27 @@ class CategoryDetailViewModel: ViewModel {
 
     @Published
     var state: CategoryDetailState
-    private let service: MarketService
+    private let marketService: MarketService
 
     init(
         category: Category,
-        service: MarketService
+        marketService: MarketService
     ) {
-        self.service = service
+        self.marketService = marketService
         self.state = CategoryDetailState(category: category)
     }
 
     func trigger(
         _ input: Never
     ) { }
+}
+
+extension CategoryDetailViewModel {
+    
+    static func fake() -> CategoryDetailViewModel {
+        .init(
+            category: Category.fakes[0],
+            marketService: MarketServiceFake()
+        )
+    }
 }

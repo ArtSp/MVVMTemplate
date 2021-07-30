@@ -19,8 +19,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let service = MarketServiceImpl()
-        let viewModel = AnyViewModel(CategoriesListViewModel(service: service))
+        let marketService = MarketServiceImpl()
+        let localStorageService = LocalStorageServiceImpl()
+        let viewModel = AnyViewModel(
+            CategoriesListViewModel(
+                marketService: marketService,
+                localStorageService: localStorageService)
+        )
         let contentView = CategoriesListView()
             .environmentObject(viewModel)
             .environmentObject(KeyboardObserver.shared)
