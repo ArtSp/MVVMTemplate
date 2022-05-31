@@ -12,7 +12,7 @@ class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewIn
     }
     
     override func trigger(
-        _ input: MasterView.ViewInput
+        _ input: ViewInput
     ) {
         switch input {
         case .loadData:

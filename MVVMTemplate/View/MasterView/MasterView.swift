@@ -9,9 +9,15 @@ struct MasterView: View {
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
-        Text("Hello, World!")
-            .textStyle(.body1)
-            .onAppear { viewModel.trigger(.loadData) }
+        NavigationView {
+            Text("Hello, World!")
+                .textStyle(.body1)
+                .onAppear { viewModel.trigger(.loadData) }
+                .navigation(item: $viewModel.state.detailViewModel) {
+                    DetailView(viewModel: $0)
+                }
+            
+        }
     }
 }
 

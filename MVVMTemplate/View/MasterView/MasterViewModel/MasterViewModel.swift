@@ -5,7 +5,7 @@
 
 extension MasterView: ViewModelView {
     struct ViewState {
-        
+        var detailViewModel: DetailView.ViewModel?
     }
     
     enum ViewInput {
