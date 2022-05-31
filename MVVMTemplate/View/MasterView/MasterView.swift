@@ -10,14 +10,16 @@ struct MasterView: View {
     
     var body: some View {
         NavigationView {
-            Text("Hello, World!")
-                .textStyle(.body1)
-                .onAppear { viewModel.trigger(.loadData) }
-                .navigation(item: $viewModel.state.detailViewModel) {
-                    DetailView(viewModel: $0)
-                }
+            Button("Tap me") {
+                viewModel.trigger(.openDetails)
+            }
+            .textStyle(.body1)
+            .navigation(item: $viewModel.state.detailViewModel) {
+                DetailView(viewModel: $0)
+            }
             
         }
+        .onAppear { viewModel.trigger(.loadData) }
     }
 }
 

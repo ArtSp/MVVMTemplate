@@ -3,9 +3,12 @@
 //  Created by Artjoms Spole on 31/05/2022.
 //
 
+protocol MasterViewModel: ViewModelObject {}
+
 class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewInput>, MasterViewModel {
     
-    func loadData() { fatalError("notImplemented") }
+    func createDetailViewModel() -> DetailView.ViewModel { fatalError() }
+    func loadData() { fatalError() }
     
     init() {
         super.init(state: .init())
@@ -17,6 +20,10 @@ class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewIn
         switch input {
         case .loadData:
             loadData()
+            
+        case .openDetails:
+            let vm = createDetailViewModel()
+            state.detailViewModel = vm
         }
     }
     

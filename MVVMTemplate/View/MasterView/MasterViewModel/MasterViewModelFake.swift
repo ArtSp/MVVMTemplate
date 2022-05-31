@@ -9,4 +9,8 @@ final class MasterViewModelFake: MasterViewModelBase {
         print("Loading")
     }
     
+    override func createDetailViewModel() -> DetailView.ViewModel {
+        DetailViewModelFake().toAnyViewModel()
+    }
+    
 }

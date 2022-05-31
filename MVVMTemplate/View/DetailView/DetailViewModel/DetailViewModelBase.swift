@@ -3,6 +3,8 @@
 //  Created by Artjoms Spole on 31/05/2022.
 //
 
+protocol DetailViewModel: ViewModelObject {}
+
 class DetailViewModelBase: ViewModelBase<DetailView.ViewState, DetailView.ViewInput>, DetailViewModel {
     
     init() {

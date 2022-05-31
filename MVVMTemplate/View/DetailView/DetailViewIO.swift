@@ -4,13 +4,8 @@
 //
 
 extension DetailView: ViewModelView {
-    struct ViewState {
-        
-    }
     
-    enum ViewInput = Never
-}
-
-protocol DetailViewModel: ViewModelObject {
+    struct ViewState { }
     
+    typealias ViewInput = Never
 }
