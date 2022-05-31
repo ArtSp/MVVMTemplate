@@ -3,9 +3,7 @@
 //  Created by Artjoms Spole on 31/05/2022.
 //
 
-protocol MasterViewModel: ViewModelObject {}
-
-class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewInput>, MasterViewModel {
+class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewInput> {
     
     func createDetailViewModel() -> DetailView.ViewModel { fatalError() }
     func loadData() { fatalError() }

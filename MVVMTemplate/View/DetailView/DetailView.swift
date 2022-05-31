@@ -7,9 +7,17 @@ import SwiftUI
 
 struct DetailView: View {
     @ObservedObject var viewModel: ViewModel
+    @Environment(\.locale) var locale
+    
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMM d, yyyy HH:mm:ss"
+        formatter.locale = locale
+        return formatter
+    }
     
     var body: some View {
-        Text("Hello, World!")
+        Text(dateFormatter.string(from: viewModel.date))
     }
 }
 

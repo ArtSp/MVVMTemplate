@@ -5,7 +5,9 @@
 
 extension DetailView: ViewModelView {
     
-    struct ViewState { }
+    struct ViewState {
+        var date: Date = .init()
+    }
     
     typealias ViewInput = Never
 }
