@@ -1,8 +1,7 @@
 //
 //  Locale+Ex.swift
-//  MVVMTemplate
-
-import Foundation
+//  Created by Artjoms Spole on 31/05/2022.
+//
 
 extension Locale {
     static let ru_RU: Locale = .init(identifier: "ru_RU")

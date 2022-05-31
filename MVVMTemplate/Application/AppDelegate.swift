@@ -1,6 +1,7 @@
 //
 //  AppDelegate.swift
-//  MVVMTemplate
+//  Created by Artjoms Spole on 31/05/2022.
+//
 
 import UIKit
 

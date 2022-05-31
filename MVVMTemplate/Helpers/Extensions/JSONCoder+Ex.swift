@@ -1,8 +1,6 @@
 //
 //  JSONCoder+Ex.swift
-//  MVVMTemplate
-//
-//  Created by Artjoms Spole on 09/07/2021.
+//  Created by Artjoms Spole on 31/05/2022.
 //
 
 import Foundation

@@ -1,8 +1,7 @@
 //
 //  TextStyle+Ex.swift
-//  MVVMTemplate
-
-import SwiftUI
+//  Created by Artjoms Spole on 31/05/2022.
+//
 
 extension TextStyle {
     static var body1 = TextStyle(.body.weight(.light))

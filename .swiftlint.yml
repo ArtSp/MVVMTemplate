@@ -12,6 +12,7 @@ disabled_rules:
  - trailing_comma
  - nesting
  - identifier_name
+ - no_space_in_method_call
 
 
 opt_in_rules:

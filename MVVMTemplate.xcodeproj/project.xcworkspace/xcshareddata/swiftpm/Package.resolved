@@ -1,0 +1,67 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "354dda32d89fc8cd4f5c46487f64957d355f53d8",
+        "version" : "5.6.1"
+      }
+    },
+    {
+      "identity" : "moya",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Moya/Moya",
+      "state" : {
+        "revision" : "e5a28fb62dd5ff4e17b7025643366550044a40b0"
+      }
+    },
+    {
+      "identity" : "mparchitecturemvvm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MP-iOS-2022/MPArchitectureMVVM",
+      "state" : {
+        "revision" : "32ca866f6ec2c4cfbb29c8fde3a07c397928d6b2",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "mpfoundation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MP-iOS-2022/MPFoundation",
+      "state" : {
+        "revision" : "dd46fd8cdc2d75749b62153f44f67fec20e47ffa",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "mpswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MP-iOS-2022/MPSwiftUI",
+      "state" : {
+        "revision" : "f9382124509e3145d1cc17734cc9dfa16c2ddb88",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "reactiveswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Moya/ReactiveSwift.git",
+      "state" : {
+        "revision" : "f195d82bb30e412e70446e2b4a77e1b514099e88",
+        "version" : "6.1.0"
+      }
+    },
+    {
+      "identity" : "rxswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveX/RxSwift.git",
+      "state" : {
+        "revision" : "cec68169a048a079f461ba203fe85636548d7a89",
+        "version" : "5.1.3"
+      }
+    }
+  ],
+  "version" : 2
+}
