@@ -10,8 +10,13 @@ struct MasterView: View {
     
     var body: some View {
         NavigationView {
-            Button("Tap me") {
-                viewModel.trigger(.openDetails)
+            VStack {
+                Unwrap(viewModel.detailViewLastDispayDuration) { time in
+                    Text("Detail screen last time was opened for: \(time) seconds")                    
+                }
+                Button("Tap me") {
+                    viewModel.trigger(.openDetails)
+                }
             }
             .textStyle(.body1)
             .navigation(item: $viewModel.state.detailViewModel) {

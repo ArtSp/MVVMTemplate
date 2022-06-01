@@ -18,6 +18,7 @@ struct DetailView: View {
     
     var body: some View {
         Text(dateFormatter.string(from: viewModel.date))
+            .onDisappear { trigger(.disappeared) }
     }
 }
 

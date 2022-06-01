@@ -22,8 +22,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MP-iOS-2022/MPArchitectureMVVM",
       "state" : {
-        "revision" : "962689b9bee83bdb579f6d68cb55c537b34ba090",
-        "version" : "1.1.0"
+        "revision" : "1dd02ca63ea85b0cff686ff1b9cd934c7883f2c1",
+        "version" : "1.1.1"
       }
     },
     {

@@ -7,6 +7,7 @@ extension MasterView: ViewModelView {
     
     struct ViewState {
         var detailViewModel: DetailView.ViewModel?
+        var detailViewLastDispayDuration: TimeInterval?
     }
     
     enum ViewInput {

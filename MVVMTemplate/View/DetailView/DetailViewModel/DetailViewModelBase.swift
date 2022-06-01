@@ -7,8 +7,14 @@ import Combine
 
 class DetailViewModelBase: ViewModelBase<DetailView.ViewState, DetailView.ViewInput> {
     
+    let diappearSubject = PassthroughSubject<Void, Never>()
+    
     init() {
-        super.init(state: .init())
+        super.init(
+            state: .init(
+                didDisappearPublisher: diappearSubject.eraseToAnyPublisher()
+            )
+        )
     }
     
     override var bindings: [AnyCancellable] {
@@ -17,6 +23,15 @@ class DetailViewModelBase: ViewModelBase<DetailView.ViewState, DetailView.ViewIn
                     .autoconnect()
                     .assignWeakly(to: \.state.date, on: self)
         ]
+    }
+    
+    override func trigger(
+        _ input: DetailView.ViewInput
+    ) {
+        switch input {
+        case .disappeared:
+            diappearSubject.send()
+        }
     }
     
 }
