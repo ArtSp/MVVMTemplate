@@ -21,15 +21,17 @@ struct DetailView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
-            Text("Current date:")
-                .textStyle(.body1)
+            Text("detail.body.date")
+                .textStyle(.h1)
             Text(dateFormatter.string(from: viewModel.date))
-            Button("Dismiss") {
+                .textStyle(.body1)
+            Button("detail.navigation.dismiss") {
                 dismiss()
             }
             .isHidden(!isModal)
         }
-        .navigationTitle("Details")
+        .multilineTextAlignment(.center)
+        .navigationTitle("detail.navigation.title")
         .onAppear { viewModel.trigger(.isVisible(isPresented)) }
         .onChange(of: isPresented) { isPresented in
             viewModel.trigger(.isVisible(isPresented))
@@ -43,5 +45,6 @@ struct DetailView_Previews: PreviewProvider {
     static let viewModel = DetailViewModelFake().toAnyViewModel()
     static var previews: some View {
         DetailView(viewModel: viewModel, isModal: true)
+            .localePreview()
     }
 }

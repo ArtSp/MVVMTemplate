@@ -1,3 +1,9 @@
 
-"CategoriesListView_categories %lld" = "Categories (%lld)";
-"CategoriesListView_loading" = "Loading...";
+"master.navigation.title" = "Master View";
+"master.navigation.openDetails" = "Open Details";
+"master.body.modal" = "Modal";
+"master.body.detailsDisplayDuration %lld" = "Detail screen last time was opened for:\n%lld seconds";
+
+"detail.navigation.title" = "Details View";
+"detail.navigation.dismiss" = "Dismiss";
+"detail.body.date" = "Current date:";
