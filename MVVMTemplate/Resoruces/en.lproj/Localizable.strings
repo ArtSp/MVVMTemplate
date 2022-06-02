@@ -7,3 +7,5 @@
 "detail.navigation.title" = "Details View";
 "detail.navigation.dismiss" = "Dismiss";
 "detail.body.date" = "Current date:";
+
+"onboarding.button.complete" = "Complete onboarding";

@@ -7,3 +7,5 @@
 "detail.navigation.title" = "Экран Деталей";
 "detail.navigation.dismiss" = "Закрыть";
 "detail.body.date" = "Дата:";
+
+"onboarding.button.complete" = "Закончить ознакомление";
