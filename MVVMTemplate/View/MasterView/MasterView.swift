@@ -7,24 +7,46 @@ import SwiftUI
 
 struct MasterView: View {
     @ObservedObject var viewModel: ViewModel
+    @State private var detailViewLastDispayDuration: TimeInterval?
     
     var body: some View {
         NavigationView {
-            VStack {
-                Unwrap(viewModel.detailViewLastDispayDuration) { time in
-                    Text("Detail screen last time was opened for: \(time) seconds")                    
+            VStack(spacing: 10) {
+                Unwrap(detailViewLastDispayDuration) { time in
+                    Text("Detail screen last time was opened for:\n\(Int(time)) seconds")
                 }
-                Button("Tap me") {
+                
+                HStack {
+                    Text("Modal")
+                    Toggle("Modal", isOn: $viewModel.state.useModalPresentation)
+                        .toggleStyle(.switch)
+                        .labelsHidden()
+                }
+                
+                Button("OpenDetails") {
                     viewModel.trigger(.openDetails)
                 }
+                
             }
             .textStyle(.body1)
-            .navigation(item: $viewModel.state.detailViewModel) {
-                DetailView(viewModel: $0)
+            .multilineTextAlignment(.center)
+            .navigationTitle("Master View")
+            .if(viewModel.useModalPresentation) { view in
+                view.fullScreenCover(item: $viewModel.state.detailViewModel) {
+                    DetailView(viewModel: $0)
+                }
+            } else: { view in
+                view.navigation(item: $viewModel.state.detailViewModel) {
+                    DetailView(viewModel: $0)
+                }
             }
-            
         }
         .onAppear { viewModel.trigger(.loadData) }
+        .onChange(of: viewModel.detailViewLastDispayDuration) { newValue in
+            withAnimation(.easeIn) {
+                detailViewLastDispayDuration = newValue
+            }
+        }
     }
 }
 

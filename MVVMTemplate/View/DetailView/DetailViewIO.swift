@@ -13,6 +13,6 @@ extension DetailView: ViewModelView {
     }
     
     enum ViewInput {
-        case disappeared
+        case isVisible(Bool)
     }
 }

@@ -22,8 +22,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MP-iOS-2022/MPArchitectureMVVM",
       "state" : {
-        "revision" : "1dd02ca63ea85b0cff686ff1b9cd934c7883f2c1",
-        "version" : "1.1.1"
+        "branch" : "main",
+        "revision" : "1dd02ca63ea85b0cff686ff1b9cd934c7883f2c1"
       }
     },
     {
@@ -31,8 +31,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MP-iOS-2022/MPFoundation",
       "state" : {
-        "revision" : "dd46fd8cdc2d75749b62153f44f67fec20e47ffa",
-        "version" : "1.0.0"
+        "branch" : "main",
+        "revision" : "fd2692edfe8864c9e4f69fe078f0938ddbc42dd4"
       }
     },
     {
@@ -40,8 +40,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MP-iOS-2022/MPSwiftUI",
       "state" : {
-        "revision" : "f9382124509e3145d1cc17734cc9dfa16c2ddb88",
-        "version" : "1.0.0"
+        "branch" : "main",
+        "revision" : "f2a57d8842a42f91941e7aac1c59ff294066b231"
       }
     },
     {

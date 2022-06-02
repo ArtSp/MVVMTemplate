@@ -8,6 +8,8 @@ import SwiftUI
 struct DetailView: View {
     @ObservedObject var viewModel: ViewModel
     @Environment(\.locale) var locale
+    @Environment(\.isPresented) var isPresented
+    @Environment(\.dismiss) var dismiss
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -17,10 +19,23 @@ struct DetailView: View {
     }
     
     var body: some View {
-        Text(dateFormatter.string(from: viewModel.date))
-            .onDisappear { trigger(.disappeared) }
+        VStack(alignment: .center, spacing: 10) {
+            Text("Current date:")
+                .textStyle(.body1)
+            Text(dateFormatter.string(from: viewModel.date))
+            Button("Dismiss") {
+                dismiss()
+            }
+        }
+        .navigationTitle("Details")
+        .onAppear { viewModel.trigger(.isVisible(isPresented)) }
+        .onChange(of: isPresented) { isPresented in
+            viewModel.trigger(.isVisible(isPresented))
+        }
     }
 }
+
+// MARK: - Preview
 
 struct DetailView_Previews: PreviewProvider {
     static let viewModel = DetailViewModelFake().toAnyViewModel()

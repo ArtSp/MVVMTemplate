@@ -16,6 +16,11 @@ class ViewModelBase<State, Input>: NSObject, ViewModelObject {
         self.state = state
         super.init()
         bind()
+        print("🐣 init \(String(describing: self))")
+    }
+    
+    deinit {
+        print("☠️ deinit \(String(describing: self))")
     }
     
     final func bind() {
