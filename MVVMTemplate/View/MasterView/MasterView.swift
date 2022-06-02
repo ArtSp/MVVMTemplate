@@ -33,14 +33,15 @@ struct MasterView: View {
             .navigationTitle("Master View")
             .if(viewModel.useModalPresentation) { view in
                 view.fullScreenCover(item: $viewModel.state.detailViewModel) {
-                    DetailView(viewModel: $0)
+                    DetailView(viewModel: $0, isModal: viewModel.useModalPresentation)
                 }
             } else: { view in
                 view.navigation(item: $viewModel.state.detailViewModel) {
-                    DetailView(viewModel: $0)
+                    DetailView(viewModel: $0, isModal: viewModel.useModalPresentation)
                 }
             }
         }
+        .navigationViewStyle(.stack)
         .onAppear { viewModel.trigger(.loadData) }
         .onChange(of: viewModel.detailViewLastDispayDuration) { newValue in
             withAnimation(.easeIn) {

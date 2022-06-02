@@ -10,6 +10,7 @@ struct DetailView: View {
     @Environment(\.locale) var locale
     @Environment(\.isPresented) var isPresented
     @Environment(\.dismiss) var dismiss
+    var isModal: Bool
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -26,6 +27,7 @@ struct DetailView: View {
             Button("Dismiss") {
                 dismiss()
             }
+            .isHidden(!isModal)
         }
         .navigationTitle("Details")
         .onAppear { viewModel.trigger(.isVisible(isPresented)) }
@@ -40,6 +42,6 @@ struct DetailView: View {
 struct DetailView_Previews: PreviewProvider {
     static let viewModel = DetailViewModelFake().toAnyViewModel()
     static var previews: some View {
-        DetailView(viewModel: viewModel)
+        DetailView(viewModel: viewModel, isModal: true)
     }
 }
