@@ -11,7 +11,11 @@ extension ContentView: ViewModelView {
     }
     
     enum ViewInput {
-        case prepareMaster
-        case prepareOnboarding
+        case prepareFor(ViewModelType)
+    }
+    
+    enum ViewModelType {
+        case master
+        case onboarding
     }
 }

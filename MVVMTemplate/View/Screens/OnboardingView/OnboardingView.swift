@@ -9,11 +9,16 @@ struct OnboardingView: View {
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
-        VStack {
-            Text(viewModel.title)
-            Button("onboarding.button.complete") {
-                trigger(.completeOnboarding)
-            }            
+        ZStack {
+            Color.gray.opacity(0.5).ignoresSafeArea()
+            VStack {
+                Text(viewModel.title)
+                    .textStyle(.h1)
+                Button("onboarding.button.complete") {
+                    trigger(.completeOnboarding)
+                }
+                .padding()
+            }
         }
     }
 }

@@ -16,15 +16,25 @@ class ContentViewModelBase: ViewModelBase<ContentView.ViewState, ContentView.Vie
         super.init(state: .init())
     }
     
+    func setViewModel(
+        for vmType: ContentView.ViewModelType
+    ) {
+        switch vmType {
+        case .master:
+            state.masterViewModel = createMasterViewModel()
+            
+        case .onboarding:
+            state.onboardingViewModel = createOnboardingViewModel()
+            
+        }
+    }
+    
     override func trigger(
         _ input: ContentView.ViewInput
     ) {
         switch input {
-        case .prepareMaster:
-            state.masterViewModel = createMasterViewModel()
-            
-        case .prepareOnboarding:
-            state.onboardingViewModel = createOnboardingViewModel()
+        case let .prepareFor(vmType):
+            setViewModel(for: vmType)
         }
     }
     

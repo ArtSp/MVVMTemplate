@@ -156,6 +156,23 @@
 			path = OnboardingView;
 			sourceTree = "<group>";
 		};
+		60719A3D2849DE8200448651 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				60719A3C2848E9EA00448651 /* OnboardingView */,
+				60E5D60A284624960054B432 /* MasterView */,
+				60E5D61F28462C090054B432 /* DetailView */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		60719A3E2849DE9900448651 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		60E5D60A284624960054B432 /* MasterView */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,9 +300,8 @@
 			children = (
 				60E5D614284626F10054B432 /* ViewModelBase.swift */,
 				60719A312848CE6500448651 /* ContentView */,
-				60719A3C2848E9EA00448651 /* OnboardingView */,
-				60E5D60A284624960054B432 /* MasterView */,
-				60E5D61F28462C090054B432 /* DetailView */,
+				60719A3E2849DE9900448651 /* Components */,
+				60719A3D2849DE8200448651 /* Screens */,
 			);
 			path = View;
 			sourceTree = "<group>";

@@ -5,29 +5,30 @@
 
 import SwiftUI
 
+/// Application main content view
 struct ContentView: View {
     @ObservedObject var viewModel: ViewModel
     @Preference(\.onboardingCompleted) var onboardingCompleted
     @Environment(\.locale) var locale
     
     var body: some View {
-        if onboardingCompleted {
-            Unwrap(viewModel.masterViewModel) {
-                MasterView(viewModel: $0)
-            } fallbackContent: {
-                Color.clear.onAppear {
-                    trigger(.prepareMaster)
+        ZStack {
+            if onboardingCompleted {
+                Unwrap(viewModel.masterViewModel) {
+                    MasterView(viewModel: $0)
                 }
-            }
-        } else {
-            Unwrap(viewModel.onboardingViewModel) {
-                OnboardingView(viewModel: $0)
-            } fallbackContent: {
-                Color.clear.onAppear {
-                    trigger(.prepareOnboarding)
+            } else {
+                Unwrap(viewModel.onboardingViewModel) {
+                    OnboardingView(viewModel: $0)
                 }
             }
         }
+        .onAppear { updateViewModels() }
+        .onChange(of: onboardingCompleted) { _ in updateViewModels() }
+    }
+    
+    func updateViewModels() {
+        trigger(.prepareFor(onboardingCompleted ? .master : .onboarding))
     }
 }
 
