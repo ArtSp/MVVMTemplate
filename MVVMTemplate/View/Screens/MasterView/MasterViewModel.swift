@@ -2,7 +2,7 @@
 //  MasterViewModel.swift
 //  Created by Artjoms Spole on 31/05/2022.
 //
-
+import CombineMoya
 import Combine
 
 // MARK: - MasterViewModelBase
@@ -25,6 +25,16 @@ class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewIn
                 })
                 .store(in: &vm.cancelables)
         }
+    
+    }
+    
+    func loadProducts() {
+        API.Request.Products()
+            .request()
+            .sinkResult { result in
+                print(result)
+            }
+            .store(in: &cancelables)
     }
     
     override func trigger(
@@ -32,7 +42,7 @@ class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewIn
     ) {
         switch input {
         case .loadData:
-            print(String.notImplemented)
+            loadProducts()
             
         case .openDetails:
             openDetails()
