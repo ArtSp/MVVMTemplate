@@ -23,12 +23,34 @@ struct ContentView: View {
                 }
             }
         }
+        .alert(item: $viewModel.state.showsAlert)
         .onAppear { updateViewModels() }
         .onChange(of: onboardingCompleted) { _ in updateViewModels() }
     }
     
     func updateViewModels() {
         trigger(.prepareFor(onboardingCompleted ? .master : .onboarding))
+    }
+}
+
+// MARK: - Helpers
+
+private extension View {
+    @ViewBuilder
+    func alert(
+        item: Binding<ContentView.AlertModel?>
+    ) -> some View {
+        let isActive = Binding(
+            get: { item.wrappedValue != nil },
+            set: { value in if !value { item.wrappedValue = nil } }
+        )
+        
+        self.alert(isPresented: isActive) {
+            Alert(
+                title: Text(item.wrappedValue?.title ?? ""),
+                message: Text(item.wrappedValue?.message ?? "")
+            )
+        }
     }
 }
 

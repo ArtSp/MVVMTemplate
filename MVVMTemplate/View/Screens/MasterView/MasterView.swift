@@ -7,8 +7,69 @@ import SwiftUI
 
 struct MasterView: View {
     @ObservedObject var viewModel: ViewModel
+    @Environment(\.locale) var locale
     @State private var detailViewLastDispayDuration: TimeInterval?
     @State private var contentSize: CGSize = .zero
+    
+    enum Const {
+        static let imageSize: CGSize = .init(width: 80, height: 80)
+        static let cornerRadius: CGFloat = 8
+    }
+    
+    var imageShape: some Shape {
+        RoundedRectangle(cornerRadius: Const.cornerRadius)
+    }
+    
+    var imageMask: some View {
+        imageShape
+            .frame(width: Const.imageSize.width,
+                   height: Const.imageSize.height,
+                   alignment: .center)
+    }
+    
+    func cell(
+        for product: Product,
+        isPlaceholder: Bool = false
+    ) -> some View {
+        HStack {
+            if isPlaceholder {
+                imageMask
+            } else {
+                MPAsyncImage(url: product.thumbnailImage) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: Const.imageSize.width,
+                               height: Const.imageSize.height,
+                               alignment: .center)
+                        .clipShape(imageShape)
+                } placeholder: {
+                    imageMask
+                        .shimmed()
+                }
+                .shadow(radius: 1)
+            }
+            
+            VStack(alignment: .leading, spacing: 6) {
+                Text(product.title)
+                    .textStyle(.h1)
+                    .if(isPlaceholder) { $0.asPlaceholder() }
+
+                Text(product.price.formattedPrice(locale: locale))
+                    .textStyle(.body1)
+                    .if(isPlaceholder) { $0.asPlaceholder() }
+            }
+            
+            Spacer()
+        }
+        .padding(6)
+        .background(
+            RoundedRectangle(cornerRadius: Const.cornerRadius)
+                .foregroundColor(.white)
+                .shadow(radius: 3)
+        )
+        .padding(.horizontal)
+    }
     
     var body: some View {
         NavigationView {
@@ -16,6 +77,24 @@ struct MasterView: View {
                 Color.clear.readSize { contentSize = $0 }
                 
                 VStack(spacing: 10) {
+                    
+                    Unwrap(viewModel.products) { products in
+                        VStack {
+                            ForEach(products) {
+                                cell(for: $0, isPlaceholder: false)
+                            }
+                        }
+                    } fallbackContent: {
+                        VStack {
+                            ForEach(Product.placeholders(count: 3)) {
+                                cell(for: $0, isPlaceholder: true)
+                            }
+                        }
+                        .shimmed()
+                    }
+                    
+                    Spacer()
+                    
                     Unwrap(detailViewLastDispayDuration) { time in
                         Text("master.body.detailsDisplayDuration \(Int(time))")
                     }
@@ -30,7 +109,6 @@ struct MasterView: View {
                     Button("master.navigation.openDetails") {
                         viewModel.trigger(.openDetails)
                     }
-                    
                 }
                 .frame(maxWidth: .infinity, minHeight: contentSize.height)
                 .scrollView(.vertical, showsIndicators: false)

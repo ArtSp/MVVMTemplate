@@ -3,6 +3,8 @@
 //  Created by Artjoms Spole on 03/06/2022.
 //
 
+import Foundation
+
 extension JSONDecoder {
     static var apiDefault: JSONDecoder {
         JSONDecoder()
@@ -48,5 +50,16 @@ extension Encodable {
     ) throws -> Data {
         try jsonData(encoder: .apiDefault)
     }
-    
+}
+
+extension Decodable {
+    init(
+        jsonFileName: String
+    ) throws {
+        guard let path = Bundle.main.path(forResource: jsonFileName, ofType: "json") else {
+            throw "File not found!"
+        }
+        let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        self = try JSONDecoder.apiDefault.decode(Self.self, from: data)
+    }
 }

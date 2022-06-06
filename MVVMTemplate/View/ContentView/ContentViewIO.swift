@@ -6,6 +6,7 @@
 extension ContentView: ViewModelView {
     
     struct ViewState {
+        var showsAlert: AlertModel?
         var masterViewModel: MasterView.ViewModel?
         var onboardingViewModel: OnboardingView.ViewModel?
     }
@@ -17,5 +18,10 @@ extension ContentView: ViewModelView {
     enum ViewModelType {
         case master
         case onboarding
+    }
+    
+    struct AlertModel {
+        let title: String
+        let message: String?
     }
 }

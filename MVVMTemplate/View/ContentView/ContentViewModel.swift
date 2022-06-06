@@ -3,6 +3,8 @@
 //  Created by Artjoms Spole on 02/06/2022.
 //
 
+import Combine
+
 // MARK: - ContentViewModelBase
 
 class ContentViewModelBase: ViewModelBase<ContentView.ViewState, ContentView.ViewInput> {
@@ -14,6 +16,15 @@ class ContentViewModelBase: ViewModelBase<ContentView.ViewState, ContentView.Vie
     
     init() {
         super.init(state: .init())
+    }
+    
+    override var bindings: [AnyCancellable] {
+        [
+            API.Error.showInContentPublisher
+                .sink { [weak self] error in
+                    self?.state.showsAlert = .init(title: error.localizedDescription, message: nil)
+                }
+        ]
     }
     
     func setViewModel(

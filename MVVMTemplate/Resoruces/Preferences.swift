@@ -54,6 +54,6 @@ final class Preferences {
     /// Sends through the changed key path whenever a change occurs.
     fileprivate var preferencesChangedSubject = PassthroughSubject<AnyKeyPath, Never>()
 
-//    @UserDefault("onboardingCompleted")
+    @UserDefault("onboardingCompleted")
     var onboardingCompleted = false
 }

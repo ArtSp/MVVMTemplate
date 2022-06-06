@@ -8,7 +8,9 @@ import Combine
 // MARK: - MasterViewModelBase
 
 class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewInput> {
+    typealias LoadingContent = MasterView.LoadingContent
     
+    var shopService: ShopService { fatalError(.notImplemented) }
     func createDetailViewModel() -> DetailView.ViewModel? { fatalError(.notImplemented) }
     
     init() {
@@ -29,11 +31,20 @@ class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewIn
     }
     
     func loadProducts() {
-        API.Request.Products()
-            .request()
-            .sinkResult { result in
-                print(result)
-            }
+        shopService.getProducts()
+            .handleEvents(
+                receiveSubscription: { [weak self] _ in self?.state.isLoading.insert(.products) },
+                receiveCompletion: { [weak self] _ in self?.state.isLoading.remove(.products) }
+            )
+            .sinkResult(result: { [weak self] result in
+                switch result {
+                case let .success(products):
+                    self?.state.products = products
+                    
+                case let .failure(error):
+                    error.showInContent()
+                }
+            })
             .store(in: &cancelables)
     }
     
@@ -55,6 +66,10 @@ class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewIn
 
 final class MasterViewModelImpl: MasterViewModelBase {
     
+    override var shopService: ShopService {
+        ShopServiceImpl.shared
+    }
+    
     override func createDetailViewModel() -> DetailView.ViewModel {
         DetailViewModelImpl().toAnyViewModel()
     }
@@ -64,6 +79,10 @@ final class MasterViewModelImpl: MasterViewModelBase {
 // MARK: - MasterViewModelFake
 
 final class MasterViewModelFake: MasterViewModelBase {
+    
+    override var shopService: ShopService {
+        ShopServiceFake.shared
+    }
     
     override func createDetailViewModel() -> DetailView.ViewModel {
         DetailViewModelFake().toAnyViewModel()
