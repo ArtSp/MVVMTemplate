@@ -11,14 +11,16 @@ class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewIn
     typealias LoadingContent = MasterView.LoadingContent
     
     var shopService: ShopService { fatalError(.notImplemented) }
-    func createDetailViewModel() -> DetailView.ViewModel? { fatalError(.notImplemented) }
+    func createDetailViewModel(productId: ID) -> DetailView.ViewModel? { fatalError(.notImplemented) }
     
     init() {
         super.init(state: .init())
     }
     
-    func openDetails() {
-        state.detailViewModel = createDetailViewModel()
+    func openDetails(
+        productId: ID
+    ) {
+        state.detailViewModel = createDetailViewModel(productId: productId)
         
         state.detailViewModel.safelyUnwrapped { vm in
             vm.displayTimePublisher
@@ -55,8 +57,8 @@ class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewIn
         case .loadData:
             loadProducts()
             
-        case .openDetails:
-            openDetails()
+        case let .openDetails(productId):
+            openDetails(productId: productId)
         }
     }
     
@@ -70,8 +72,10 @@ final class MasterViewModelImpl: MasterViewModelBase {
         ShopServiceImpl.shared
     }
     
-    override func createDetailViewModel() -> DetailView.ViewModel {
-        DetailViewModelImpl().toAnyViewModel()
+    override func createDetailViewModel(
+        productId: ID
+    ) -> DetailView.ViewModel {
+        DetailViewModelImpl(productId: productId).toAnyViewModel()
     }
     
 }
@@ -84,8 +88,10 @@ final class MasterViewModelFake: MasterViewModelBase {
         ShopServiceFake.shared
     }
     
-    override func createDetailViewModel() -> DetailView.ViewModel {
-        DetailViewModelFake().toAnyViewModel()
+    override func createDetailViewModel(
+        productId: ID
+    ) -> DetailView.ViewModel {
+        DetailViewModelFake(productId: productId).toAnyViewModel()
     }
     
 }

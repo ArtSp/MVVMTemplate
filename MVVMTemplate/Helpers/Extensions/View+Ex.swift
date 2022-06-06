@@ -10,8 +10,8 @@ extension View {
     
     func shimmed(
         intensity: Double = 0.5,
-        shimmerColor: Color = .white,
-        shimmerBackgroundColor: Color = .mint,
+        shimmerColor: Color = .shimmer,
+        shimmerBackgroundColor: Color = .shimmerBgd,
         shimmerAnimationDuration: TimeInterval = 1.5,
         shimmerDelay: TimeInterval? = nil
     ) -> some View {

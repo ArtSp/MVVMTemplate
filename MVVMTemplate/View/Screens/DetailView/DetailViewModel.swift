@@ -12,13 +12,21 @@ class DetailViewModelBase: ViewModelBase<DetailView.ViewState, DetailView.ViewIn
     
     let timerSubject = CurrentValueSubject<TimeInterval, Never>(.zero)
     var appearDate: Date?
+    let productId: ID
     
-    init() {
+    var shopService: ShopService { fatalError(.notImplemented) }
+    
+    init(
+        productId: ID
+    ) {
+        self.productId = productId
         super.init(
             state: .init(
                 displayTimePublisher: timerSubject.eraseToAnyPublisher()
             )
         )
+        
+        loadDetails()
     }
     
     override var bindings: [AnyCancellable] {
@@ -33,6 +41,25 @@ class DetailViewModelBase: ViewModelBase<DetailView.ViewState, DetailView.ViewIn
         ]
     }
     
+    func loadDetails() {
+        shopService.getProduct(productId)
+            .handleEvents(
+                receiveSubscription: { [weak self] _ in self?.state.isLoading.insert(.productDetails) },
+                receiveCompletion: { [weak self] _ in self?.state.isLoading.remove(.productDetails) }
+            )
+            .sinkResult(result: { [weak self] result in
+                switch result {
+                case let .success(product):
+                    self?.state.selectedImage = product.images.first
+                    self?.state.product = product
+                    
+                case let .failure(error):
+                    error.showInContent()
+                }
+            })
+            .store(in: &cancelables)
+    }
+    
     override func trigger(
         _ input: DetailView.ViewInput
     ) {
@@ -41,7 +68,9 @@ class DetailViewModelBase: ViewModelBase<DetailView.ViewState, DetailView.ViewIn
             if visible && appearDate.isNil {
                 appearDate = .init()
             }
-            print("Details is \(visible ? "" : "not ")visible")
+            
+        case let .selectedImage(imageUrl):
+            state.selectedImage = imageUrl
         }
     }
     
@@ -49,8 +78,24 @@ class DetailViewModelBase: ViewModelBase<DetailView.ViewState, DetailView.ViewIn
 
 // MARK: - DetailViewModelImpl
 
-final class DetailViewModelImpl: DetailViewModelBase { }
+final class DetailViewModelImpl: DetailViewModelBase {
+    
+    override var shopService: ShopService {
+        ShopServiceImpl.shared
+    }
+    
+}
 
 // MARK: - DetailViewModelFake
 
-final class DetailViewModelFake: DetailViewModelBase { }
+final class DetailViewModelFake: DetailViewModelBase {
+    
+    convenience init() {
+        self.init(productId: 1)
+    }
+    
+    override var shopService: ShopService {
+        ShopServiceFake.shared
+    }
+    
+}

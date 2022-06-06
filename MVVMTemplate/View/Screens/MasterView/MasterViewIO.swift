@@ -15,7 +15,7 @@ extension MasterView: ViewModelView {
     
     enum ViewInput {
         case loadData
-        case openDetails
+        case openDetails(ID)
     }
     
     enum LoadingContent {

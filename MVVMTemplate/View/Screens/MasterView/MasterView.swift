@@ -68,7 +68,7 @@ struct MasterView: View {
                 .foregroundColor(.white)
                 .shadow(radius: 3)
         )
-        .padding(.horizontal)
+        .padding(.horizontal, 6)
     }
     
     var body: some View {
@@ -79,9 +79,12 @@ struct MasterView: View {
                 VStack(spacing: 10) {
                     
                     Unwrap(viewModel.products) { products in
-                        VStack {
-                            ForEach(products) {
-                                cell(for: $0, isPlaceholder: false)
+                        LazyVStack {
+                            ForEach(products) { product in
+                                Button(
+                                    action: { trigger(.openDetails(product.id)) },
+                                    label: { cell(for: product, isPlaceholder: false) }
+                                )
                             }
                         }
                     } fallbackContent: {
@@ -91,6 +94,7 @@ struct MasterView: View {
                             }
                         }
                         .shimmed()
+                        .isHidden(!viewModel.isLoading.contains(.products))
                     }
                     
                     Spacer()
@@ -104,10 +108,6 @@ struct MasterView: View {
                         Toggle("master.body.modal", isOn: $viewModel.state.useModalPresentation)
                             .toggleStyle(.switch)
                             .labelsHidden()
-                    }
-                    
-                    Button("master.navigation.openDetails") {
-                        viewModel.trigger(.openDetails)
                     }
                 }
                 .frame(maxWidth: .infinity, minHeight: contentSize.height)

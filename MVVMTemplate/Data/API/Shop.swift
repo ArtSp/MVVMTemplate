@@ -17,7 +17,7 @@ extension API.Shop {
     struct Product: ModelTargetType {
         typealias Response = API.Model.Product
         var productId: ID
-        var path: String { "/product/\(productId)" }
+        var path: String { "/products/\(productId)" }
         var method: TargetMethod { .get }
         var sampleData: Data { try! Response.fake(id: productId).jsonData() }
     }

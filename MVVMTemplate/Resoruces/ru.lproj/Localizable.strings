@@ -1,6 +1,5 @@
 
 "master.navigation.title" = "Главный экран";
-"master.navigation.openDetails" = "Открыть Детали";
 "master.body.modal" = "Модально";
 "master.body.detailsDisplayDuration %lld" = "Экран Деталей последний раз был открыт:\n%lld секунд";
 
