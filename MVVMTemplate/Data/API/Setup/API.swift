@@ -3,12 +3,19 @@
 //  Created by Artjoms Spole on 03/06/2022.
 //
 
+import Combine
+
 enum API {
     // Specity BE models here:
     enum Model {}
     
-    // Set token here:
+    // Get current token here:
     static var authToken: String? { nil }
+    
+    // Get/Refresh token here:
+    static func getToken() -> AnyPublisher<String?, Never> {
+        Just(nil).eraseToAnyPublisher()
+    }
     
     // Handle unauthorized request error here:
     static let unauthorizedClosure: ErrorHandler.UnauthorizedClosure = { error in

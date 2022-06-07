@@ -172,7 +172,7 @@ private func CombineMoyaProviderRequest<T: AppTargetType>(
     let provider = MoyaProvider<T>.default(stubClosure: stubClosure)
 
     let tokenPublisher: AnyPublisher<String?, Never> = {
-        target is IsUnauthorized ? Just(nil).eraseToAnyPublisher() : Just(nil).eraseToAnyPublisher() //FIXME: TokenService.shared.getToken()
+        target is IsUnauthorized ? Just(nil).eraseToAnyPublisher() : API.getToken()
     }()
     
     // will refresh token if needed
