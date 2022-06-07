@@ -16,6 +16,7 @@ extension MasterView: ViewModelView {
     enum ViewInput {
         case loadData
         case openDetails(ID)
+        case setModalDisplayMode(Bool)
     }
     
     enum LoadingContent {

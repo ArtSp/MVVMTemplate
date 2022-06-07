@@ -69,6 +69,17 @@ struct DetailView: View {
                 .frame(width: scrollViewMinSize.width, height: scrollViewMinSize.width * 0.8)
                 .asPlaceholder()
                 .shimmed()
+                .if(offset.y > 0) { view in
+                    view.transformEffect(
+                        .init(
+                            scaleX: transformRatio(for: offset), y: transformRatio(for: offset)
+                        ).concatenating(
+                            .init(
+                                translationX: (topImageWidth - transformRatio(for: offset) * topImageWidth) / 2, y: -offset.y
+                            )
+                        )
+                    )
+                }
                 .isHidden(viewModel.isLoading.isEmpty)
         }
     }
@@ -129,8 +140,7 @@ struct DetailView: View {
         }
     }
     var body: some View {
-        
-        ZStack {
+        ZStack(alignment: .topTrailing) {
             Color.clear
                 .readSize { scrollViewMinSize = $0 }
             
@@ -152,18 +162,26 @@ struct DetailView: View {
                     .textStyle(.h1)
                 Text(dateFormatter.string(from: viewModel.date))
                     .textStyle(.body1)
-                Button("detail.navigation.dismiss") {
-                    dismiss()
-                }
-                .isHidden(!isModal)
             }
             .frame(minHeight: scrollViewMinSize.height)
-            .readFrame(space: .global) { rect in
+            .readFrame(space: isModal ? .global : .named("Content")) { rect in
                 scrollViewOffset = rect.origin
             }
             .scrollView(.vertical, showsIndicators: false)
+            
+            Button(
+                action: { dismiss() },
+                label: { Image(systemName: "xmark.circle.fill") }
+            )
+            .scaleEffect(1.5)
+            .foregroundColor(.white.opacity(0.8))
+            .shadow(radius: 3)
+            .padding(.horizontal, 26)
+            .isHidden(!isModal)
         }
+        .coordinateSpace(name: "Content")
         .multilineTextAlignment(.center)
+        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("detail.navigation.title")
         .onAppear { viewModel.trigger(.isVisible(isPresented)) }
         .onChange(of: isPresented) { isPresented in
@@ -177,7 +195,14 @@ struct DetailView: View {
 struct DetailView_Previews: PreviewProvider {
     static let viewModel = DetailViewModelFake().toAnyViewModel()
     static var previews: some View {
-        DetailView(viewModel: viewModel, isModal: true)
+        Group {
+            DetailView(viewModel: viewModel, isModal: true)
+            
+            NavigationView {
+                DetailView(viewModel: viewModel, isModal: false)
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+        }
             .localePreview()
     }
 }

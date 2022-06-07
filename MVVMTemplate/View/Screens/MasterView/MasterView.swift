@@ -77,6 +77,9 @@ struct MasterView: View {
                 Color.clear.readSize { contentSize = $0 }
                 
                 VStack(spacing: 10) {
+                    Unwrap(detailViewLastDispayDuration) { time in
+                        Text("master.body.detailsDisplayDuration \(Int(time))")
+                    }
                     
                     Unwrap(viewModel.products) { products in
                         LazyVStack {
@@ -85,6 +88,7 @@ struct MasterView: View {
                                     action: { trigger(.openDetails(product.id)) },
                                     label: { cell(for: product, isPlaceholder: false) }
                                 )
+                                .foregroundColor(.black)
                             }
                         }
                     } fallbackContent: {
@@ -98,17 +102,6 @@ struct MasterView: View {
                     }
                     
                     Spacer()
-                    
-                    Unwrap(detailViewLastDispayDuration) { time in
-                        Text("master.body.detailsDisplayDuration \(Int(time))")
-                    }
-                    
-                    HStack {
-                        Text("master.body.modal")
-                        Toggle("master.body.modal", isOn: $viewModel.state.useModalPresentation)
-                            .toggleStyle(.switch)
-                            .labelsHidden()
-                    }
                 }
                 .frame(maxWidth: .infinity, minHeight: contentSize.height)
                 .scrollView(.vertical, showsIndicators: false)
@@ -116,6 +109,13 @@ struct MasterView: View {
             .textStyle(.body1)
             .multilineTextAlignment(.center)
             .navigationTitle("master.navigation.title")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(viewModel.useModalPresentation ? "master.body.modal" : "master.body.navBar") {
+                        trigger(.setModalDisplayMode(!viewModel.useModalPresentation))
+                    }
+                }
+            }
             .if(viewModel.useModalPresentation) { view in
                 view.fullScreenCover(item: $viewModel.state.detailViewModel) {
                     DetailView(viewModel: $0, isModal: viewModel.useModalPresentation)

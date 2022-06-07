@@ -59,6 +59,9 @@ class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewIn
             
         case let .openDetails(productId):
             openDetails(productId: productId)
+            
+        case let .setModalDisplayMode(useModal):
+            state.useModalPresentation = useModal
         }
     }
     

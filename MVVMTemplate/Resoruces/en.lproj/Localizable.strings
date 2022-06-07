@@ -1,6 +1,7 @@
 
 "master.navigation.title" = "Master View";
 "master.body.modal" = "Modal";
+"master.body.navBar" = "Navigation bar";
 "master.body.detailsDisplayDuration %lld" = "Detail screen last time was opened for:\n%lld seconds";
 
 "detail.navigation.title" = "Details View";
