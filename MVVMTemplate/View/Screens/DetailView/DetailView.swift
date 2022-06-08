@@ -127,11 +127,11 @@ struct DetailView: View {
     ) -> some View {
         VStack(spacing: 6) {
             Text(product.title)
-                .textStyle(.h1)
             Text(product.description)
+                .textStyle(.body1)
             Text(product.price.formattedPrice(locale: locale))
         }
-        .textStyle(.body1)
+        .textStyle(.h1)
     }
     
     // MARK: Body

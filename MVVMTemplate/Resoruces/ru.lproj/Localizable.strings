@@ -9,3 +9,6 @@
 "detail.body.date" = "Дата:";
 
 "onboarding.button.complete" = "Закончить ознакомление";
+"onboarding.screen1.title" = "Экран 1";
+"onboarding.screen2.title" = "Экран 2";
+"onboarding.screen3.title" = "Экран 3";

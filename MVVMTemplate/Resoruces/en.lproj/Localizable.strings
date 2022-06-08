@@ -9,3 +9,6 @@
 "detail.body.date" = "Current date:";
 
 "onboarding.button.complete" = "Complete onboarding";
+"onboarding.screen1.title" = "Screen 1";
+"onboarding.screen2.title" = "Screen 2";
+"onboarding.screen3.title" = "Screen 3";
