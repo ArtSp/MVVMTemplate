@@ -13,7 +13,7 @@ struct MasterView: View {
     
     enum Const {
         static let imageSize: CGSize = .init(width: 80, height: 80)
-        static let cornerRadius: CGFloat = 8
+        static let cornerRadius: CGFloat = 2
     }
     
     var imageShape: some Shape {
@@ -28,36 +28,26 @@ struct MasterView: View {
     }
     
     func cell(
-        for product: Product,
-        isPlaceholder: Bool = false
+        for product: Product
     ) -> some View {
         HStack {
-            if isPlaceholder {
-                imageMask
-            } else {
-                MPAsyncImage(url: product.thumbnailImage) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: Const.imageSize.width,
-                               height: Const.imageSize.height,
-                               alignment: .center)
-                        .clipShape(imageShape)
-                } placeholder: {
-                    imageMask
-                        .shimmed()
-                }
-                .shadow(radius: 1)
+            MPAsyncImage(url: product.thumbnailImage) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
             }
+            .frame(width: Const.imageSize.width,
+                   height: Const.imageSize.height,
+                   alignment: .center)
+            .clipShape(imageShape)
+            .shadow(radius: 1)
             
             VStack(alignment: .leading, spacing: 6) {
                 Text(product.title)
                     .textStyle(.h1)
-                    .if(isPlaceholder) { $0.asPlaceholder() }
 
                 Text(product.price.formattedPrice(locale: locale))
                     .textStyle(.body1)
-                    .if(isPlaceholder) { $0.asPlaceholder() }
             }
             
             Spacer()
@@ -86,7 +76,7 @@ struct MasterView: View {
                             ForEach(products) { product in
                                 Button(
                                     action: { trigger(.openDetails(product.id)) },
-                                    label: { cell(for: product, isPlaceholder: false) }
+                                    label: { cell(for: product) }
                                 )
                                 .foregroundColor(.black)
                             }
@@ -94,10 +84,9 @@ struct MasterView: View {
                     } fallbackContent: {
                         VStack {
                             ForEach(Product.placeholders(count: 3)) {
-                                cell(for: $0, isPlaceholder: true)
+                                cell(for: $0).redacted(reason: .placeholder)
                             }
                         }
-                        .shimmed()
                         .isHidden(!viewModel.isLoading.contains(.products))
                     }
                     
@@ -105,6 +94,7 @@ struct MasterView: View {
                 }
                 .frame(maxWidth: .infinity, minHeight: contentSize.height)
                 .scrollView(.vertical, showsIndicators: false)
+                .redacted(!viewModel.isLoading.isEmpty)
             }
             .textStyle(.body1)
             .multilineTextAlignment(.center)

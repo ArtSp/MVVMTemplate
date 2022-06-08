@@ -6,6 +6,7 @@
 struct Product: Identifiable {
     let id: ID
     let title: String
+    let description: String
     let price: Price
     let inStock: Bool
     let thumbnailImage: URL
@@ -21,6 +22,7 @@ extension API.Model.Product: ToDomainMapping {
         }
         return .init(id: id,
                      title: title,
+                     description: description,
                      price: price,
                      inStock: stock > 0,
                      thumbnailImage: thumbnailImage,
@@ -32,6 +34,7 @@ extension Product: PlaceholderProvider {
     static var placeholder: Self = .init(
         id: -1,
         title: "Product Title",
+        description: "Some detailed text about the product",
         price: 999,
         inStock: false,
         thumbnailImage: URL(string: .loopBack)!,

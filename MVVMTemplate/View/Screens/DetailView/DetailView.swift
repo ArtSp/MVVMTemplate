@@ -40,14 +40,13 @@ struct DetailView: View {
         return selectedImage == imageUrl ? .clear : color
     }
     
-    func image(
+    func mainImage(
         for offset: CGPoint
     ) -> some View {
         Unwrap(viewModel.selectedImage) { selectedImageUrl in
             MPAsyncImage(
                 url: selectedImageUrl,
-                resultModifier: { $0.resizable() },
-                placeholder: { Placeholder().shimmed() }
+                resultModifier: { $0.resizable() }
             )
                 .scaledToFill()
                 .frame(width: topImageWidth, height: topImageHeight)
@@ -65,10 +64,8 @@ struct DetailView: View {
                 }
                 
         } fallbackContent: {
-            Rectangle()
+            Placeholder()
                 .frame(width: scrollViewMinSize.width, height: scrollViewMinSize.width * 0.8)
-                .asPlaceholder()
-                .shimmed()
                 .if(offset.y > 0) { view in
                     view.transformEffect(
                         .init(
@@ -84,21 +81,22 @@ struct DetailView: View {
         }
     }
     
-    var images: some View {
+    var imagesForSelection: some View {
         Unwrap(viewModel.product?.images) { images in
-            LazyHStack(spacing: 15) {
+            LazyHStack(spacing: 6) {
                 ForEach(images, id: \.self) { imageUrl in
                     ZStack {
                         MPAsyncImage(
                             url: imageUrl,
-                            resultModifier: { $0.resizable() },
-                            placeholder: { Placeholder().shimmed() }
+                            resultModifier: { $0.resizable() }
                         )
                         .scaledToFill()
                         .frame(width: 82, height: 82)
                         .clipped()
                     }
                     .overlay(overlay(for: imageUrl))
+                    .clipShape(PlaceholderShape())
+                    .contentShape(PlaceholderShape())
                     .onTapGesture {
                         withAnimation {
                             viewModel.trigger(.selectedImage(imageUrl))
@@ -113,46 +111,44 @@ struct DetailView: View {
         } fallbackContent: {
             HStack(spacing: 6) {
                 ForEach(0..<6, id: \.self) { _ in
-                    Rectangle()
+                    Placeholder()
                         .frame(width: 82, height: 82)
-                        .asPlaceholder()
                 }
             }
-            .scrollView(.horizontal, showsIndicators: false)
             .padding(.horizontal)
+            .scrollView(.horizontal, showsIndicators: false)
             .disabled(true)
-            .shimmed()
             .isHidden(viewModel.isLoading.isEmpty)
         }
     }
     
     func productDetails(
-        for product: Product,
-        isPlaceholder: Bool
+        for product: Product
     ) -> some View {
         VStack(spacing: 6) {
             Text(product.title)
                 .textStyle(.h1)
-                .if(isPlaceholder) { $0.asPlaceholder() }
+            Text(product.description)
             Text(product.price.formattedPrice(locale: locale))
-                .textStyle(.body1)
-                .if(isPlaceholder) { $0.asPlaceholder() }
         }
+        .textStyle(.body1)
     }
+    
+    // MARK: Body
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             Color.clear
                 .readSize { scrollViewMinSize = $0 }
             
             VStack(alignment: .center, spacing: 10) {
-                image(for: scrollViewOffset)
-                images
+                mainImage(for: scrollViewOffset)
+                imagesForSelection
                 
                 Unwrap(viewModel.product) { product in
-                    productDetails(for: product, isPlaceholder: false)
+                    productDetails(for: product)
                 } fallbackContent: {
-                    productDetails(for: Product.placeholder, isPlaceholder: true)
-                        .shimmed()
+                    productDetails(for: Product.placeholder)
                         .isHidden(viewModel.isLoading.isEmpty)
                 }
                 
@@ -187,7 +183,9 @@ struct DetailView: View {
         .onChange(of: isPresented) { isPresented in
             viewModel.trigger(.isVisible(isPresented))
         }
+        .redactedAndShimmed(!viewModel.isLoading.isEmpty)
     }
+    
 }
 
 // MARK: - Preview

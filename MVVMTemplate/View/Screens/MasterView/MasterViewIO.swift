@@ -1,5 +1,5 @@
 //
-//  MasterView.swift
+//  MasterViewIO.swift
 //  Created by Artjoms Spole on 31/05/2022.
 //
 
@@ -9,7 +9,7 @@ extension MasterView: ViewModelView {
         var products: [Product]?
         var detailViewModel: DetailView.ViewModel?
         var detailViewLastDispayDuration: TimeInterval?
-        var useModalPresentation = true
+        var useModalPresentation = false
         var isLoading = Set<LoadingContent>()
     }
     
