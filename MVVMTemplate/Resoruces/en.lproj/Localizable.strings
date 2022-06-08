@@ -1,5 +1,6 @@
 
 "master.navigation.title" = "Master View";
+"master.navigation.drop" = "Drop shapes";
 "master.body.modal" = "Modal";
 "master.body.navBar" = "Navigation bar";
 "master.body.detailsDisplayDuration %lld" = "Detail screen last time was opened for:\n%lld seconds";

@@ -10,6 +10,10 @@ struct MasterView: View {
     @Environment(\.locale) var locale
     @State private var detailViewLastDispayDuration: TimeInterval?
     @State private var contentSize: CGSize = .zero
+    @State private var dropOrigin: CGPoint = .zero
+    
+    /// Overlay shape scene
+    let weirdScene = BrickSceneView()
     
     enum Const {
         static let imageSize: CGSize = .init(width: 80, height: 80)
@@ -62,66 +66,78 @@ struct MasterView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                Color.clear.readSize { contentSize = $0 }
-                
-                VStack(spacing: 10) {
-                    Unwrap(detailViewLastDispayDuration) { time in
-                        Text("master.body.detailsDisplayDuration \(Int(time))")
+        ZStack {
+            NavigationView {
+                ZStack {
+                    Color.clear.readSize { contentSize = $0 }
+                    
+                    VStack(spacing: 10) {
+                        Unwrap(detailViewLastDispayDuration) { time in
+                            Text("master.body.detailsDisplayDuration \(Int(time))")
+                        }
+                        
+                        Unwrap(viewModel.products) { products in
+                            LazyVStack {
+                                ForEach(products) { product in
+                                    Button(
+                                        action: { trigger(.openDetails(product.id)) },
+                                        label: { cell(for: product) }
+                                    )
+                                    .foregroundColor(.black)
+                                }
+                            }
+                        } fallbackContent: {
+                            VStack {
+                                ForEach(Product.placeholders(count: 3)) {
+                                    cell(for: $0).redacted(reason: .placeholder)
+                                }
+                            }
+                            .isHidden(!viewModel.isLoading.contains(.products))
+                        }
+                        
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity, minHeight: contentSize.height)
+                    .scrollView(.vertical, showsIndicators: false)
+                    .redacted(!viewModel.isLoading.isEmpty)
+                }
+                .textStyle(.body1)
+                .multilineTextAlignment(.center)
+                .navigationTitle("master.navigation.title")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(viewModel.useModalPresentation ? "master.body.modal" : "master.body.navBar") {
+                            trigger(.setModalDisplayMode(!viewModel.useModalPresentation))
+                        }
                     }
                     
-                    Unwrap(viewModel.products) { products in
-                        LazyVStack {
-                            ForEach(products) { product in
-                                Button(
-                                    action: { trigger(.openDetails(product.id)) },
-                                    label: { cell(for: product) }
-                                )
-                                .foregroundColor(.black)
-                            }
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("master.navigation.drop") {
+                            weirdScene.dropItems(at: dropOrigin)
                         }
-                    } fallbackContent: {
-                        VStack {
-                            ForEach(Product.placeholders(count: 3)) {
-                                cell(for: $0).redacted(reason: .placeholder)
-                            }
-                        }
-                        .isHidden(!viewModel.isLoading.contains(.products))
+                        .readFrame(space: .global) { dropOrigin = $0.origin }
                     }
-                    
-                    Spacer()
                 }
-                .frame(maxWidth: .infinity, minHeight: contentSize.height)
-                .scrollView(.vertical, showsIndicators: false)
-                .redacted(!viewModel.isLoading.isEmpty)
-            }
-            .textStyle(.body1)
-            .multilineTextAlignment(.center)
-            .navigationTitle("master.navigation.title")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(viewModel.useModalPresentation ? "master.body.modal" : "master.body.navBar") {
-                        trigger(.setModalDisplayMode(!viewModel.useModalPresentation))
+                .if(viewModel.useModalPresentation) { view in
+                    view.fullScreenCover(item: $viewModel.state.detailViewModel) {
+                        DetailView(viewModel: $0, isModal: viewModel.useModalPresentation)
+                    }
+                } else: { view in
+                    view.navigation(item: $viewModel.state.detailViewModel) {
+                        DetailView(viewModel: $0, isModal: viewModel.useModalPresentation)
                     }
                 }
             }
-            .if(viewModel.useModalPresentation) { view in
-                view.fullScreenCover(item: $viewModel.state.detailViewModel) {
-                    DetailView(viewModel: $0, isModal: viewModel.useModalPresentation)
-                }
-            } else: { view in
-                view.navigation(item: $viewModel.state.detailViewModel) {
-                    DetailView(viewModel: $0, isModal: viewModel.useModalPresentation)
+            .navigationViewStyle(.stack)
+            .onAppear { viewModel.trigger(.loadData) }
+            .onChange(of: viewModel.detailViewLastDispayDuration) { newValue in
+                withAnimation(.easeIn) {
+                    detailViewLastDispayDuration = newValue
                 }
             }
-        }
-        .navigationViewStyle(.stack)
-        .onAppear { viewModel.trigger(.loadData) }
-        .onChange(of: viewModel.detailViewLastDispayDuration) { newValue in
-            withAnimation(.easeIn) {
-                detailViewLastDispayDuration = newValue
-            }
+            
+            weirdScene
+                .allowsHitTesting(false)
         }
     }
 }

@@ -1,5 +1,6 @@
 
 "master.navigation.title" = "Главный экран";
+"master.navigation.drop" = "Бросить фигур";
 "master.body.modal" = "Модальный";
 "master.body.navBar" = "Панель навигации";
 "master.body.detailsDisplayDuration %lld" = "Экран Деталей последний раз был открыт:\n%lld секунд";

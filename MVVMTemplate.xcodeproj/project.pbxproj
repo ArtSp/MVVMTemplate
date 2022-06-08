@@ -48,6 +48,7 @@
 		60E5D62E28476E7B0054B432 /* MPArchitectureMVVM in Frameworks */ = {isa = PBXBuildFile; productRef = 60E5D62D28476E7B0054B432 /* MPArchitectureMVVM */; };
 		60E5D63128476E9F0054B432 /* MPArchitectureMVVM in Frameworks */ = {isa = PBXBuildFile; productRef = 60E5D63028476E9F0054B432 /* MPArchitectureMVVM */; };
 		60E5D63428476ED60054B432 /* MPArchitectureMVVM in Frameworks */ = {isa = PBXBuildFile; productRef = 60E5D63328476ED60054B432 /* MPArchitectureMVVM */; };
+		60E9B1992850BD0900A42581 /* BrickSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E9B1982850BD0900A42581 /* BrickSceneView.swift */; };
 		E6474CDB2698741C00717AE2 /* TextStyle+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6474CDA2698741C00717AE2 /* TextStyle+Ex.swift */; };
 		E66210582696D52100B2B861 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = E66210572696D52100B2B861 /* CombineMoya */; };
 		E662105A2696D52100B2B861 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = E66210592696D52100B2B861 /* Moya */; };
@@ -115,6 +116,7 @@
 		60E5D61D28462C050054B432 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		60E5D62028462C160054B432 /* DetailViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewIO.swift; sourceTree = "<group>"; };
 		60E5D62328462C7B0054B432 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		60E9B1982850BD0900A42581 /* BrickSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrickSceneView.swift; sourceTree = "<group>"; };
 		E6474CDA2698741C00717AE2 /* TextStyle+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextStyle+Ex.swift"; sourceTree = "<group>"; };
 		E66210672696E0C700B2B861 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E6E815282695BA0E00407941 /* MVVMTemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMTemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +205,7 @@
 		60719A3E2849DE9900448651 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				60E9B1982850BD0900A42581 /* BrickSceneView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -394,8 +397,8 @@
 			isa = PBXGroup;
 			children = (
 				60E5D614284626F10054B432 /* ViewModelBase.swift */,
-				60719A312848CE6500448651 /* ContentView */,
 				60719A3E2849DE9900448651 /* Components */,
+				60719A312848CE6500448651 /* ContentView */,
 				60719A3D2849DE8200448651 /* Screens */,
 			);
 			path = View;
@@ -621,6 +624,7 @@
 				60A9B6EF284DCD870063AFCC /* Model.swift in Sources */,
 				60E5D609284624900054B432 /* MasterView.swift in Sources */,
 				60A9B6E9284A3A600063AFCC /* Provider.swift in Sources */,
+				60E9B1992850BD0900A42581 /* BrickSceneView.swift in Sources */,
 				60A9B700284E23C60063AFCC /* String+Ex.swift in Sources */,
 				60E5D60C284624FE0054B432 /* Imports.swift in Sources */,
 				60A9B6E7284A39FA0063AFCC /* ErrorHandler.swift in Sources */,
