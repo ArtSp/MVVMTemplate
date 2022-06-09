@@ -49,6 +49,12 @@ struct MasterView: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text(product.title)
                     .textStyle(.h1)
+                    .padding(.vertical, -5)
+                    .readFrame(space: .global) { rect in
+                        if viewModel.detailViewModel.isNil, !viewModel.products.isNil {
+                            weirdScene.updateLabelFrame(id: product.id, rect: rect)
+                        }
+                    }
 
                 Text(product.price.formattedPrice(locale: locale))
                     .textStyle(.body1)
@@ -121,10 +127,14 @@ struct MasterView: View {
                 .if(viewModel.useModalPresentation) { view in
                     view.fullScreenCover(item: $viewModel.state.detailViewModel) {
                         DetailView(viewModel: $0, isModal: viewModel.useModalPresentation)
+                            
                     }
                 } else: { view in
                     view.navigation(item: $viewModel.state.detailViewModel) {
                         DetailView(viewModel: $0, isModal: viewModel.useModalPresentation)
+                            .onAppear {
+                                weirdScene.removeAllLabelRects()
+                            }
                     }
                 }
             }
