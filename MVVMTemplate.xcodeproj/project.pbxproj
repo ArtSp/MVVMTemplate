@@ -58,7 +58,7 @@
 		E6E815322695BA1000407941 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E815312695BA1000407941 /* Assets.xcassets */; };
 		E6E815352695BA1000407941 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E815342695BA1000407941 /* Preview Assets.xcassets */; };
 		E6E815382695BA1000407941 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6E815362695BA1000407941 /* LaunchScreen.storyboard */; };
-		E6E815432695BA1000407941 /* MVVMTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E815422695BA1000407941 /* MVVMTemplateTests.swift */; };
+		E6E815432695BA1000407941 /* ShopServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E815422695BA1000407941 /* ShopServiceTests.swift */; };
 		E6E8154E2695BA1000407941 /* MVVMTemplateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E8154D2695BA1000407941 /* MVVMTemplateUITests.swift */; };
 		E6E8159E2695C7C500407941 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E6E815A02695C7C500407941 /* Localizable.strings */; };
 		E6E815A82696C46700407941 /* Locale+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E815A72696C46700407941 /* Locale+Ex.swift */; };
@@ -127,7 +127,7 @@
 		E6E815372695BA1000407941 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E6E815392695BA1000407941 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6E8153E2695BA1000407941 /* MVVMTemplateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVVMTemplateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6E815422695BA1000407941 /* MVVMTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMTemplateTests.swift; sourceTree = "<group>"; };
+		E6E815422695BA1000407941 /* ShopServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopServiceTests.swift; sourceTree = "<group>"; };
 		E6E815442695BA1000407941 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6E815492695BA1000407941 /* MVVMTemplateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVVMTemplateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E8154D2695BA1000407941 /* MVVMTemplateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMTemplateUITests.swift; sourceTree = "<group>"; };
@@ -350,7 +350,7 @@
 		E6E815412695BA1000407941 /* MVVMTemplateTests */ = {
 			isa = PBXGroup;
 			children = (
-				E6E815422695BA1000407941 /* MVVMTemplateTests.swift */,
+				E6E815422695BA1000407941 /* ShopServiceTests.swift */,
 				E6E815442695BA1000407941 /* Info.plist */,
 			);
 			path = MVVMTemplateTests;
@@ -649,7 +649,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6E815432695BA1000407941 /* MVVMTemplateTests.swift in Sources */,
+				E6E815432695BA1000407941 /* ShopServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,6 +826,7 @@
 				DEVELOPMENT_TEAM = 529472X7BJ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MVVMTemplate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -848,6 +849,7 @@
 				DEVELOPMENT_TEAM = 529472X7BJ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MVVMTemplate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -866,9 +868,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RZ7DFJNR7Y;
+				DEVELOPMENT_TEAM = 529472X7BJ;
 				INFOPLIST_FILE = MVVMTemplateTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -888,9 +890,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RZ7DFJNR7Y;
+				DEVELOPMENT_TEAM = 529472X7BJ;
 				INFOPLIST_FILE = MVVMTemplateTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -909,7 +911,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RZ7DFJNR7Y;
+				DEVELOPMENT_TEAM = 529472X7BJ;
 				INFOPLIST_FILE = MVVMTemplateUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -929,7 +931,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RZ7DFJNR7Y;
+				DEVELOPMENT_TEAM = 529472X7BJ;
 				INFOPLIST_FILE = MVVMTemplateUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
