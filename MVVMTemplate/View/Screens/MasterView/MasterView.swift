@@ -77,6 +77,10 @@ struct MasterView: View {
                 ZStack {
                     Color.clear.readSize { contentSize = $0 }
                     
+                    SwiftUIView {
+                        MetalView()
+                    }
+                    
                     VStack(spacing: 10) {
                         Unwrap(detailViewLastDispayDuration) { time in
                             Text("master.body.detailsDisplayDuration \(Int(time))")

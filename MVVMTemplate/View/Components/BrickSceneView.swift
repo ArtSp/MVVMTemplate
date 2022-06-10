@@ -33,6 +33,14 @@ struct BrickSceneView: View {
             .readSize { contentSize = $0 }
     }
     
+    func dropItem(
+        image: UIImage,
+        at location: CGPoint
+    ) {
+        let sprite = scene.textureNode(texture: .init(image: image))
+        scene.dropItem(node: sprite, at: scene.convertPoint(toView: location))
+    }
+    
     func dropItems(
         at location: CGPoint
     ) {
@@ -48,7 +56,7 @@ struct BrickSceneView: View {
             y: rect.origin.y + rect.height / 2
         )
         let origin = scene.convertPoint(toView: viewOrigin)
-        scene.addOrMoveNode(name: "\(id)", rect: .init(origin: origin, size: rect.size))
+        scene.addOrMoveLabelNode(name: "\(id)", rect: .init(origin: origin, size: rect.size))
     }
     
     func removeAllLabelRects() {
@@ -73,7 +81,9 @@ private class BrickScene: SKScene {
         commonInit()
     }
     
-    override init(size: CGSize) {
+    override init(
+        size: CGSize
+    ) {
         super.init(size: size)
         
         commonInit()
@@ -97,48 +107,79 @@ private class BrickScene: SKScene {
         }
     }
     
+    func textureNode(
+        texture: SKTexture,
+        size: CGSize? = nil
+    ) -> SKSpriteNode {
+        let spriteNode = SKSpriteNode(texture: texture)
+        if let size = size { spriteNode.size = size }
+        spriteNode.physicsBody = .init(rectangleOf: spriteNode.size)
+        return spriteNode
+    }
+    
+    func squareSprite(
+        ofSize size: CGSize,
+        color: UIColor
+    ) -> SKShapeNode {
+        let node = SKShapeNode(rectOf: size)
+        node.physicsBody = .init(rectangleOf: size)
+        node.fillColor = color
+        node.lineWidth = 0
+        return node
+    }
+    
+    func circleSprite(
+        radius: CGFloat,
+        color: UIColor
+    ) -> SKShapeNode {
+        let node = SKShapeNode(circleOfRadius: radius)
+        node.physicsBody = .init(circleOfRadius: radius)
+        node.fillColor = color
+        node.lineWidth = 0
+        return node
+    }
+    
+    func triangleNode(
+        ofSize size: CGSize,
+        color: UIColor
+    ) -> SKShapeNode {
+        let w = size.width / 2
+        let h = size.height
+        let up = Bool.random()
+        let trianglePath = UIBezierPath()
+        trianglePath.move(to: .zero)
+        trianglePath.addLine(to: .init(x: -w, y: up ? h : -h))
+        trianglePath.addLine(to: .init(x: w, y: up ? h : -h))
+        trianglePath.close()
+
+        let node = SKShapeNode(path: trianglePath.cgPath)
+        node.physicsBody = .init(polygonFrom: trianglePath.cgPath)
+        node.fillColor = color
+        node.lineWidth = 0
+        return node
+    }
+    
     var randomNode: SKNode {
-        let random = CGFloat((10...30).randomElement()!)
-        let size = CGSize(width: random, height: random)
-        var node: SKShapeNode
+        let randomW = CGFloat((10...30).randomElement()!)
+        let randomSize = CGSize(width: randomW, height: randomW)
         
         switch (0...10).randomElement() {
         case 0:
-            var spriteNode: SKSpriteNode
-            let spriteWidth = 50
-            guard let spriteTexture = spriteTexture else { fallthrough }
-            
-            spriteNode = SKSpriteNode(texture: spriteTexture)
-            spriteNode.size = .init(width: spriteWidth, height: spriteWidth * Int(aspectRatio))
-            spriteNode.physicsBody = .init(rectangleOf: spriteNode.size)
-            return spriteNode
+            return squareSprite(ofSize: randomSize, color: .random)
             
         case 1:
-            node = .init(rectOf: size)
-            node.physicsBody = .init(rectangleOf: size)
-
+            return triangleNode(ofSize: randomSize, color: .random)
+            
         case 2:
-            let w = size.width / 2
-            let h = size.height
-            let up = Bool.random()
-            let trianglePath = UIBezierPath()
-            trianglePath.move(to: .zero)
-            trianglePath.addLine(to: .init(x: -w, y: up ? h : -h))
-            trianglePath.addLine(to: .init(x: w, y: up ? h : -h))
-            trianglePath.close()
-
-            node = .init(path: trianglePath.cgPath)
-            node.physicsBody = .init(polygonFrom: trianglePath.cgPath)
+            if let spriteTexture = spriteTexture {
+                return textureNode(texture: spriteTexture, size: .init(width: 50, height: 100))
+            } else {
+                fallthrough
+            }
             
         default:
-            node = .init(circleOfRadius: size.width / 2)
-            node.physicsBody = .init(circleOfRadius: size.width / 2)
+            return circleSprite(radius: randomW / 2, color: .random)
         }
-        
-        node.fillColor = .random
-        node.strokeColor = .random
-        node.lineWidth = 0
-        return node
     }
     
     func captureScreenshot() -> UIImage {
@@ -161,12 +202,16 @@ private class BrickScene: SKScene {
         return screenshot ?? UIImage()
     }
     
-    override func didMove(to view: SKView) {
+    override func didMove(
+        to view: SKView
+    ) {
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsBody!.categoryBitMask = boundaryCategoryMask
     }
     
-    override func update(_ currentTime: TimeInterval) {
+    override func update(
+        _ currentTime: TimeInterval
+    ) {
         super.update(currentTime)
         
         guard let lastNodeRemoveTime = lastNodeRemoveTime else {
@@ -181,7 +226,9 @@ private class BrickScene: SKScene {
         
     }
     
-    func accelerationUpdated(_ acceleration: CMAcceleration) {
+    func accelerationUpdated(
+        _ acceleration: CMAcceleration
+    ) {
         let g = 9.8
         let gravityX = g * acceleration.x
         let gravityY = g * acceleration.y
@@ -204,8 +251,11 @@ private class BrickScene: SKScene {
         }
     }
     
-    func dropItems(count: Int = 30, at location: CGPoint) {
-        DispatchQueue(label: "opa").async {
+    func dropItems(
+        count: Int = 30,
+        at location: CGPoint
+    ) {
+        DispatchQueue(label: "Capture").async {
             if self.spriteTexture.isNil {
                 var img: UIImage!
                 DispatchQueue.main.sync {
@@ -230,7 +280,19 @@ private class BrickScene: SKScene {
                 }
             }
         }
-        
+    }
+    
+    func dropItem(
+        node: SKNode,
+        at location: CGPoint
+    ) {
+        addChild(node)
+        node.physicsBody?.applyImpulse(
+            CGVector(
+                dx: CGFloat((-30...30).randomElement()!),
+                dy: CGFloat((-30...30).randomElement()!)
+            )
+        )
     }
     
     func removeAllLabelRects() {
@@ -239,7 +301,10 @@ private class BrickScene: SKScene {
             .forEach { $0.removeFromParent() }
     }
     
-    func addOrMoveNode(name: String, rect: CGRect) {
+    func addOrMoveLabelNode(
+        name: String,
+        rect: CGRect
+    ) {
         var node: SKNode? = scene?.childNode(withName: name)
         let mustAddNode = node.isNil
         defer { if mustAddNode { scene?.addChild(node!) } }

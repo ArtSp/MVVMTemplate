@@ -17,6 +17,8 @@
 		60719A3B2848E9E700448651 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60719A3A2848E9E700448651 /* OnboardingViewModel.swift */; };
 		60719A40284A158500448651 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60719A3F284A158500448651 /* API.swift */; };
 		60719A44284A1CCC00448651 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60719A43284A1CCC00448651 /* Models.swift */; };
+		6097242D285332B500EDCFC4 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097242C285332B500EDCFC4 /* MetalView.swift */; };
+		6097242F2853373D00EDCFC4 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6097242E2853373D00EDCFC4 /* Shaders.metal */; };
 		60A9B6DF284A32A80063AFCC /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A9B6DE284A32A80063AFCC /* TargetType.swift */; };
 		60A9B6E1284A34D60063AFCC /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A9B6E0284A34D60063AFCC /* APIError.swift */; };
 		60A9B6E3284A354B0063AFCC /* APITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A9B6E2284A354B0063AFCC /* APITarget.swift */; };
@@ -92,6 +94,8 @@
 		60719A3A2848E9E700448651 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		60719A3F284A158500448651 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		60719A43284A1CCC00448651 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		6097242C285332B500EDCFC4 /* MetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
+		6097242E2853373D00EDCFC4 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		60A9B6DE284A32A80063AFCC /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		60A9B6E0284A34D60063AFCC /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		60A9B6E2284A354B0063AFCC /* APITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITarget.swift; sourceTree = "<group>"; };
@@ -206,6 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				60E9B1982850BD0900A42581 /* BrickSceneView.swift */,
+				6097242C285332B500EDCFC4 /* MetalView.swift */,
+				6097242E2853373D00EDCFC4 /* Shaders.metal */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -616,6 +622,7 @@
 				60719A44284A1CCC00448651 /* Models.swift in Sources */,
 				60A9B6E1284A34D60063AFCC /* APIError.swift in Sources */,
 				60A9B6DF284A32A80063AFCC /* TargetType.swift in Sources */,
+				6097242F2853373D00EDCFC4 /* Shaders.metal in Sources */,
 				60719A332848CE7F00448651 /* ContentViewIO.swift in Sources */,
 				60E5D615284626F10054B432 /* ViewModelBase.swift in Sources */,
 				60A9B6E3284A354B0063AFCC /* APITarget.swift in Sources */,
@@ -635,6 +642,7 @@
 				E66210682696E0C700B2B861 /* Constants.swift in Sources */,
 				60E5D62128462C160054B432 /* DetailViewIO.swift in Sources */,
 				60E5D62428462C7B0054B432 /* DetailViewModel.swift in Sources */,
+				6097242D285332B500EDCFC4 /* MetalView.swift in Sources */,
 				60A9B702284E250B0063AFCC /* Price+Ex.swift in Sources */,
 				60A9B704284E2AE10063AFCC /* Color+Ex.swift in Sources */,
 				60719A3B2848E9E700448651 /* OnboardingViewModel.swift in Sources */,
