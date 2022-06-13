@@ -17,7 +17,7 @@ class MetalView: MTKView {
         }
         colorPixelFormat = .bgra8Unorm
         // Our clear color, can be set to any color
-        clearColor = MTLClearColor(red: 0.1, green: 0.57, blue: 0.25, alpha: 1)
+        clearColor = MTLClearColor(red: 1, green: 1, blue: 1, alpha: 1)
         createRenderer(device: defaultDevice)
     }
     
