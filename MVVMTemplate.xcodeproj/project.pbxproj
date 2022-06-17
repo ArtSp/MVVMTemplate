@@ -17,6 +17,8 @@
 		60719A3B2848E9E700448651 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60719A3A2848E9E700448651 /* OnboardingViewModel.swift */; };
 		60719A40284A158500448651 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60719A3F284A158500448651 /* API.swift */; };
 		60719A44284A1CCC00448651 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60719A43284A1CCC00448651 /* Models.swift */; };
+		6075EAA6285CA8BA0022D90C /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075EAA5285CA8BA0022D90C /* Language.swift */; };
+		6075EAA8285CB62A0022D90C /* Bundle+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6075EAA7285CB62A0022D90C /* Bundle+Ex.swift */; };
 		6097242D285332B500EDCFC4 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6097242C285332B500EDCFC4 /* MetalView.swift */; };
 		6097242F2853373D00EDCFC4 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6097242E2853373D00EDCFC4 /* Shaders.metal */; };
 		60A9B6DF284A32A80063AFCC /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A9B6DE284A32A80063AFCC /* TargetType.swift */; };
@@ -94,6 +96,8 @@
 		60719A3A2848E9E700448651 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		60719A3F284A158500448651 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		60719A43284A1CCC00448651 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		6075EAA5285CA8BA0022D90C /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		6075EAA7285CB62A0022D90C /* Bundle+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ex.swift"; sourceTree = "<group>"; };
 		6097242C285332B500EDCFC4 /* MetalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
 		6097242E2853373D00EDCFC4 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		60A9B6DE284A32A80063AFCC /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
@@ -416,6 +420,7 @@
 				E6E815312695BA1000407941 /* Assets.xcassets */,
 				60719A342848E64E00448651 /* Preferences.swift */,
 				E66210672696E0C700B2B861 /* Constants.swift */,
+				6075EAA5285CA8BA0022D90C /* Language.swift */,
 				E6E815A02695C7C500407941 /* Localizable.strings */,
 				60A9B6F2284DCF340063AFCC /* Fakes */,
 			);
@@ -428,6 +433,7 @@
 				E6474CDA2698741C00717AE2 /* TextStyle+Ex.swift */,
 				60A9B703284E2AE00063AFCC /* Color+Ex.swift */,
 				60719A2B2848AD3F00448651 /* View+Ex.swift */,
+				6075EAA7285CB62A0022D90C /* Bundle+Ex.swift */,
 				E6E815A72696C46700407941 /* Locale+Ex.swift */,
 				60A9B6F9284DEA340063AFCC /* Error+Ex.swift */,
 				60A9B6FF284E23C60063AFCC /* String+Ex.swift */,
@@ -626,12 +632,14 @@
 				60719A332848CE7F00448651 /* ContentViewIO.swift in Sources */,
 				60E5D615284626F10054B432 /* ViewModelBase.swift in Sources */,
 				60A9B6E3284A354B0063AFCC /* APITarget.swift in Sources */,
+				6075EAA6285CA8BA0022D90C /* Language.swift in Sources */,
 				60719A352848E64E00448651 /* Preferences.swift in Sources */,
 				60A9B6FA284DEA340063AFCC /* Error+Ex.swift in Sources */,
 				60A9B6EF284DCD870063AFCC /* Model.swift in Sources */,
 				60E5D609284624900054B432 /* MasterView.swift in Sources */,
 				60A9B6E9284A3A600063AFCC /* Provider.swift in Sources */,
 				60E9B1992850BD0900A42581 /* BrickSceneView.swift in Sources */,
+				6075EAA8285CB62A0022D90C /* Bundle+Ex.swift in Sources */,
 				60A9B700284E23C60063AFCC /* String+Ex.swift in Sources */,
 				60E5D60C284624FE0054B432 /* Imports.swift in Sources */,
 				60A9B6E7284A39FA0063AFCC /* ErrorHandler.swift in Sources */,

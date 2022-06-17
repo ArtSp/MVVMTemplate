@@ -9,6 +9,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var viewModel: ViewModel
     @Preference(\.onboardingCompleted) var onboardingCompleted
+    @Preference(\.bundleLanguage) var bundleLanguage
     @Environment(\.locale) var locale
     
     var body: some View {
@@ -26,6 +27,7 @@ struct ContentView: View {
         .alert(item: $viewModel.state.showsAlert)
         .onAppear { updateViewModels() }
         .onChange(of: onboardingCompleted) { _ in updateViewModels() }
+        .locale(bundleLanguage.locale)
     }
     
     func updateViewModels() {

@@ -8,6 +8,7 @@ import SwiftUI
 struct MasterView: View {
     @ObservedObject var viewModel: ViewModel
     @Environment(\.locale) var locale
+    @Preference(\.bundleLanguage) var bundleLanguage
     @State private var detailViewLastDispayDuration: TimeInterval?
     @State private var contentSize: CGSize = .zero
     @State private var dropOrigin: CGPoint = .zero
@@ -82,6 +83,17 @@ struct MasterView: View {
                     }
                     
                     VStack(spacing: 10) {
+                        
+                        Picker("master.language", selection: $bundleLanguage) {
+                            ForEach(Language.appSupported) { language in
+                                Text(language.name.capitalized)
+                                    .tag(language)
+                            }
+                        }
+                        .redacted(false)
+                        .pickerStyle(.segmented)
+                        .padding(.horizontal)
+                        
                         Unwrap(detailViewLastDispayDuration) { time in
                             Text("master.body.detailsDisplayDuration \(Int(time))")
                         }

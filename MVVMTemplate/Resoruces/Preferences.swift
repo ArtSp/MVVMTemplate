@@ -4,6 +4,7 @@
 //
 
 import Combine
+import Foundation
 
 /// Preperty wrapper that allows to notify swiftUI about property changes
 @propertyWrapper
@@ -56,4 +57,9 @@ final class Preferences {
 
     @UserDefault("onboardingCompleted")
     var onboardingCompleted = false
+    
+    var bundleLanguage: Language {
+        get { Bundle.language ?? .english(.us) }
+        set { Bundle.setLanguage(newValue) }
+    }
 }
