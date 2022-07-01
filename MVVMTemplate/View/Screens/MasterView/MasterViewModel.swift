@@ -15,6 +15,30 @@ class MasterViewModelBase: ViewModelBase<MasterView.ViewState, MasterView.ViewIn
     
     init() {
         super.init(state: .init())
+        
+        play()
+    }
+    
+    func play() {
+        Task {
+            do {
+                let text1 = try await getText(after: 3)
+                print(text1)
+                let text2 = try await getText(after: 2)
+                print(text2)
+                let text3 = try await getText(after: 1)
+                print(text3)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func getText(
+        after delay: TimeInterval
+    ) async throws -> String {
+        try await Task.sleep(seconds: delay)
+        return "🤡 Hola! \(delay) seconds passed"
     }
     
     func openDetails(
@@ -97,4 +121,13 @@ final class MasterViewModelFake: MasterViewModelBase {
         DetailViewModelFake(productId: productId).toAnyViewModel()
     }
     
+}
+
+extension Task where Success == Never, Failure == Never {
+    static func sleep(
+        seconds: TimeInterval
+    ) async throws {
+        let duration = UInt64(seconds * 1_000_000_000)
+        try await Task.sleep(nanoseconds: duration)
+    }
 }
